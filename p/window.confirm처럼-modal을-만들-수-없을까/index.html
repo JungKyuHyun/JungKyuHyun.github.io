@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Modal 컴포넌트 관련 상태가 너무 많아요. 꼭 필요한게 맞을까요.'><title>window.confirm처럼 Modal을 만들 수 없을까?</title>
+
+<link rel='canonical' href='https://JungKyuHyun.github.io/p/window.confirm%EC%B2%98%EB%9F%BC-modal%EC%9D%84-%EB%A7%8C%EB%93%A4-%EC%88%98-%EC%97%86%EC%9D%84%EA%B9%8C/'>
+
+<link rel="stylesheet" href="/scss/style.min.450926226e724574a6b936335ea06111f8aeb253d932c86cb2cc807341cd2889.css"><meta property='og:title' content='window.confirm처럼 Modal을 만들 수 없을까?'>
+<meta property='og:description' content='Modal 컴포넌트 관련 상태가 너무 많아요. 꼭 필요한게 맞을까요.'>
+<meta property='og:url' content='https://JungKyuHyun.github.io/p/window.confirm%EC%B2%98%EB%9F%BC-modal%EC%9D%84-%EB%A7%8C%EB%93%A4-%EC%88%98-%EC%97%86%EC%9D%84%EA%B9%8C/'>
+<meta property='og:site_name' content='규현&#39;s blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='frontend' /><meta property='article:tag' content='react' /><meta property='article:tag' content='typescript' /><meta property='article:tag' content='window.confirm' /><meta property='article:tag' content='demo' /><meta property='article:tag' content='example' /><meta property='article:published_time' content='2022-04-20T00:00:00&#43;09:00'/><meta property='article:modified_time' content='2022-04-20T00:00:00&#43;09:00'/><meta property='og:image' content='https://JungKyuHyun.github.io/p/window.confirm%EC%B2%98%EB%9F%BC-modal%EC%9D%84-%EB%A7%8C%EB%93%A4-%EC%88%98-%EC%97%86%EC%9D%84%EA%B9%8C/window-confrim.png' />
+<meta name="twitter:title" content="window.confirm처럼 Modal을 만들 수 없을까?">
+<meta name="twitter:description" content="Modal 컴포넌트 관련 상태가 너무 많아요. 꼭 필요한게 맞을까요."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://JungKyuHyun.github.io/p/window.confirm%EC%B2%98%EB%9F%BC-modal%EC%9D%84-%EB%A7%8C%EB%93%A4-%EC%88%98-%EC%97%86%EC%9D%84%EA%B9%8C/window-confrim.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YB5QERN1V4"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-YB5QERN1V4', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/profile_150x150_huf2c668fa0026ea0f1a84f59f3df02e87_6652_300x0_resize_q75_box.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">규현&#39;s blog</a></h1>
+            <h2 class="site-description">Front-End Developer</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/JungKyuHyun'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/kyu-hyun/'
+                        target="_blank"
+                        title="LinkedIn"
+                    >
+                        
+                        
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286h-.001zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+    fill="none"
+  ></path>
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="https://JungKyuHyun.github.io/" selected>Korean</option>
+                        
+                            <option value="https://JungKyuHyun.github.io/en/" >English</option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>다크 모드</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/window.confirm%EC%B2%98%EB%9F%BC-modal%EC%9D%84-%EB%A7%8C%EB%93%A4-%EC%88%98-%EC%97%86%EC%9D%84%EA%B9%8C/">
+                <img src="/p/window.confirm%EC%B2%98%EB%9F%BC-modal%EC%9D%84-%EB%A7%8C%EB%93%A4-%EC%88%98-%EC%97%86%EC%9D%84%EA%B9%8C/window-confrim_hu85ca61163faa13fa410b880d5b9b2ffc_32347_800x0_resize_box_3.png"
+                        srcset="/p/window.confirm%EC%B2%98%EB%9F%BC-modal%EC%9D%84-%EB%A7%8C%EB%93%A4-%EC%88%98-%EC%97%86%EC%9D%84%EA%B9%8C/window-confrim_hu85ca61163faa13fa410b880d5b9b2ffc_32347_800x0_resize_box_3.png 800w, /p/window.confirm%EC%B2%98%EB%9F%BC-modal%EC%9D%84-%EB%A7%8C%EB%93%A4-%EC%88%98-%EC%97%86%EC%9D%84%EA%B9%8C/window-confrim_hu85ca61163faa13fa410b880d5b9b2ffc_32347_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="297" 
+                        loading="lazy"
+                        alt="Featured image of post window.confirm처럼 Modal을 만들 수 없을까?" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/react/" style="background-color: #61dafb; color: #000;">
+                React
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/window.confirm%EC%B2%98%EB%9F%BC-modal%EC%9D%84-%EB%A7%8C%EB%93%A4-%EC%88%98-%EC%97%86%EC%9D%84%EA%B9%8C/">window.confirm처럼 Modal을 만들 수 없을까?</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Modal 컴포넌트 관련 상태가 너무 많아요. 꼭 필요한게 맞을까요.
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 20, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 분 정도
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="windowconfirm">window.confirm()</h2>
+<p>프론트엔드 개발을 하다보면, 의외로 간단하게 사용했던 Web API인 <code>window.confirm()</code>가 그리울 때가 있다. 사용자에게 <code>yes/no</code>만 간단하게 요구하는 경우가 그러하다. 아래 그림처럼 어떤 리소스를 삭제하기 전에 사용자에게 한번 더 확인한다든지 그런 UI이다.</p>
+<p><img src="https://user-images.githubusercontent.com/42884032/164060908-97e82961-79da-4b0c-b6c0-ba0927ee9328.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="window-confirm"
+	
+	
+></p>
+<p>사용하기도 간단하고 UI 컴포넌트를 추가할 필요도 없으며, 추가로 저 <code>confirm</code>창에 대한 상태 또한 관리하지 않아도 된다. 단지 이 함수의 시그니처에서도 알 수 있듯이 사용자가 선택하여 반환된 <code>boolean</code> 값에 의존하여 이후 로직을 설계하기만 하면 된다.</p>
+<blockquote>
+<p>window.confirm(message?: string): boolean</p>
+</blockquote>
+<p>하지만 사용자가 적은 관리자 UI가 아니고선 사실 사용하기 쉽지 않다. 대부분의 웹은 자신들만의 특정한 UI 컨셉을 가지고 있으며 그것에 맞게 디자인, 위치 등을 수정할 수 없는 <code>window.confirm</code> 같은 Web API를 사용할 수가 없다. 또한 <code>confirm</code>이나 <code>alert</code> 등의 Web API는 스크립트 실행을 일시 중지하고 그 창이 닫힐 때까지 사용자가 페이지의 다른 부분과 상호 작용하는 것을 허용하지 않기 때문에 때로는 사용자 경험이 좋지 못하다.</p>
+<p>위에서 보듯 <code>window.confirm</code>은 정말 단순하지만 실제로 사용하기에는 그 댓가가 너무 크다.</p>
+<h2 id="에이-그러면-modal을-직접-구현해서-만들면-되지">에이, 그러면 Modal을 직접 구현해서 만들면 되지</h2>
+<p>맞다. 틀린 말이 절대 아니다. 직접 구현해서 사용하면 되고 그렇게 만들었다고 틀린거나 동작이 이상한건 없다. 단지 관리 포인트(상태)가 늘어날 뿐이다. 이를 개선하기 위해 커스텀 훅으로 상태를 관리하는 부분을 뺀다든지 할 수 있겠지만, 여전히 <code>window.confirm</code>만큼 심플하지 않다.</p>
+<h2 id="간단함을-포기하는게-답인가">간단함을 포기하는게 답인가</h2>
+<p>그런건 아니다. 예를들어 <code>react-toastify</code> 같은 라이브러리에서 볼 수 있듯이 충분히 개선할 수 있다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ToastContainer</span><span class="p">,</span> <span class="nx">toast</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;react-toastify&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;react-toastify/dist/ReactToastify.css&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">notify</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">toast</span><span class="p">(</span><span class="s2">&#34;Wow so easy!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">notify</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Notify</span><span class="o">!&lt;</span><span class="err">/button&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">ToastContainer</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>잠깐 다른 라이브러리를 언급한 이유는 이 문제를 개선할 수 있는 방법은 여러 가지가 존재하고 그중 한가지를 보여주려 하기 때문이다.</p>
+<p>처음에는 이런 문제를 해결할때 종종 사용했던 <code>context API</code>를 사용하려 했다. 하지만 우리의 앱은 이미 여러 사람들이 잠깐잠깐 거쳐가면서 추가해 놓은 <code>Provider Hell</code>을 겪고 있었다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">App() {</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">AProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">BProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">CProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">DProvider</span><span class="p">&gt;...&lt;/</span><span class="nt">DProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">CProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">BProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">AProvider</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>그래서 이번엔 조금 다른 방식으로 문제를 해결해 보자는 생각을 했고 그 방식을 적어 보려고 한다.</p>
+<h2 id="간단하면서도-유연하게-만들자">간단하면서도 유연하게 만들자</h2>
+<p><code>Modal</code> 컴포넌트의 경우 요구 사항에 따라 미세하게 변경되는 경우가 많았다. 그래서 <code>window.confirm</code>과 같이 <code>yes/no</code>에 대해서 사용할 수 있는 컴포넌트만 추상화하기로 결정했고, 그 외의 부분은 미리 추상화 놓은 <code>Modal</code> 컴포넌트를 통해 선언적으로 만드는 것이 더 낫다고 판단했다.</p>
+<p>이렇게 범위로 정하고 나니깐 내가 만들어야할 <code>window.confirm</code>와 유사한 함수의 시그니처를 정할 수 있었다.</p>
+<blockquote>
+<p>modalHook(args: ModalProps): Promise&lt;boolean&gt;</p>
+</blockquote>
+<p>이 함수는 기존에 사용해왔던 <code>Modal</code>의 인터페이스를 그대로 가져와 매개변수로 사용하고 <code>Modal</code>를 렌더링해주며, 확인/취소에 따라 <code>Promise</code>를 통해 boolean 값을 반환하는 간단한 함수이다. 여기서 기존에 추상해 놓은 <code>Modal</code>의 인터페이스를 그대로 가져온 이유는 기존 추상화된 Modal의 유연함을 그대로 가져가면서도 기존 개발자들이 사용하던 인터페이스를 훼손하지 않음으로서 기존 인터페이스에 대한 그대로 유지함을 목적으로 했다.</p>
+<h2 id="modalhook-demo-code">modalHook demo code</h2>
+<p>실제 코드를 적을 수는 없어서, 스펙을 최대한 간소화한 데모 코드의 시그니처는 아래와 같다.</p>
+<blockquote>
+<p>modalHook(message?: string): Promise&lt;boolean&gt;</p>
+</blockquote>
+<p>데모 코드는 간단히 <code>window.confirm</code>과 동일하게 <code>message</code>만 받도록 수정했다. 그외의 구현체는 대부분 동일하기 때문에 실제 프로젝트에 적용할 때도 상황에 맞게 약간만 변경해 준다면 문제 없다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">ReactDOM</span><span class="p">,</span> <span class="p">{</span> <span class="nx">unmountComponentAtNode</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;react-dom&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">bodyNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&#34;body&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">ModalProps</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">open?</span>: <span class="kt">boolean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">message?</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onConfirm</span><span class="o">?:</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">React.MouseEvent</span><span class="p">&lt;</span><span class="nt">HTMLButtonElement</span><span class="err">,</span> <span class="na">MouseEvent</span><span class="p">&gt;)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onCancel</span><span class="o">?:</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">React.MouseEvent</span><span class="p">&lt;</span><span class="nt">HTMLButtonElement</span><span class="err">,</span> <span class="na">MouseEvent</span><span class="p">&gt;)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">Modal</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">open</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">message</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onCancel</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onConfirm</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="o">:</span> <span class="nx">ModalProps</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">dialog</span> <span class="na">open</span><span class="o">=</span><span class="p">{</span><span class="nx">open</span><span class="p">}&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;{</span><span class="nx">message</span><span class="p">}&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">onCancel</span><span class="p">}&gt;</span><span class="err">취소</span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">onConfirm</span><span class="p">}&gt;</span><span class="err">확인</span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">dialog</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">modalHook</span><span class="p">(</span><span class="nx">message?</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">boolean</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">modalNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;div&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">modalNode</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&#34;kyuhyun-modal&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">bodyNode</span><span class="o">?</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">modalNode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">handleReolve</span> <span class="o">=</span> <span class="p">(</span><span class="nx">res</span>: <span class="kt">boolean</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">unmountComponentAtNode</span><span class="p">(</span><span class="nx">modalNode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">resolve</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">bodyNode</span><span class="o">?</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">modalNode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">Modal</span>
+</span></span><span class="line"><span class="cl">        <span class="na">open</span>
+</span></span><span class="line"><span class="cl">        <span class="na">onConfirm</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">handleReolve</span><span class="p">(</span><span class="kc">true</span><span class="p">)}</span>
+</span></span><span class="line"><span class="cl">        <span class="na">onCancel</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">handleReolve</span><span class="p">(</span><span class="kc">false</span><span class="p">)}</span>
+</span></span><span class="line"><span class="cl">        <span class="na">message</span><span class="o">=</span><span class="p">{</span><span class="nx">message</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">/&gt;,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">modalNode</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>코드를 보면 특별히 이해가 어렵거나 특이한 로직은 없어 설명은 생략한다. 다만 <code>react 18</code> 버전 이상을 쓴다면 <code>ReactDOM.render</code>부분만 변경해 줘도 좋을거 같다. (<a class="link" href="https://reactjs.org/docs/react-dom-client.html"  target="_blank" rel="noopener"
+    >참고: ReactDOMClient</a>)</p>
+<p>실제 코드에서 테스트 해보면 위에서 만든 <code>modalHook</code>이 <code>windonw.confirm</code>과 유사한 방식으로 잘 동작하는 것을 확인할 수 있다. 만약 별도의 <code>Modal</code> 라이브러리를 사용한다면 위의 모달 구현체 부분과 타입만 약간 수정하면 그대로 적용이 가능하다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">modalHook</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;./Modal&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App() {</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">&#34;btn-container&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">button</span>
+</span></span><span class="line"><span class="cl">        <span class="na">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="kr">const</span> <span class="nx">agree</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">confirm</span><span class="p">(</span><span class="s2">&#34;정말 삭제하시겠습니까?&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="p">(</span><span class="nx">agree</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">alert</span><span class="p">(</span><span class="s2">&#34;삭제 좋아!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">alert</span><span class="p">(</span><span class="s2">&#34;삭제 안돼!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">삭제하기</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">confirm</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">button</span>
+</span></span><span class="line"><span class="cl">        <span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="kr">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="kr">const</span> <span class="nx">agree</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">modalHook</span><span class="p">(</span><span class="s2">&#34;정말 삭제하시겠습니까?&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="p">(</span><span class="nx">agree</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">modalHook</span><span class="p">(</span><span class="s2">&#34;삭제 좋아!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">modalHook</span><span class="p">(</span><span class="s2">&#34;삭제 안돼!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">삭제하기</span><span class="p">(</span><span class="nx">modalHook</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="데모-영상">데모 영상</h2>
+<p><img src="https://user-images.githubusercontent.com/42884032/164082766-4a37230b-c518-446e-9b9c-296f475dbd01.gif"
+	
+	
+	
+	loading="lazy"
+	
+		alt="2022-04-20_04-40-14 (1)"
+	
+	
+></p>
+<hr>
+<p>감사합니다.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/frontend/">frontend</a>
+        
+            <a href="/tags/react/">react</a>
+        
+            <a href="/tags/typescript/">typescript</a>
+        
+            <a href="/tags/window.confirm/">window.confirm</a>
+        
+            <a href="/tags/demo/">demo</a>
+        
+            <a href="/tags/example/">example</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="JungKyuHyun/JungKyuHyun.github.io"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+  <section class="copyright">
+    &copy;  2022 규현&#39;s blog
+  </section>
+
+  <section class="powerby">
+     티스토리에서 블로그 이사중.. <br />
+    
+
+    
+
+    
+  </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#windowconfirm">window.confirm()</a></li>
+    <li><a href="#에이-그러면-modal을-직접-구현해서-만들면-되지">에이, 그러면 Modal을 직접 구현해서 만들면 되지</a></li>
+    <li><a href="#간단함을-포기하는게-답인가">간단함을 포기하는게 답인가</a></li>
+    <li><a href="#간단하면서도-유연하게-만들자">간단하면서도 유연하게 만들자</a></li>
+    <li><a href="#modalhook-demo-code">modalHook demo code</a></li>
+    <li><a href="#데모-영상">데모 영상</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

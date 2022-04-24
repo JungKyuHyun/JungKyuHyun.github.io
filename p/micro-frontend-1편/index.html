@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='마이크로 프론트엔드 도입을 고려하며, 자료 정리 중'><title>Micro-Frontend - 1편</title>
+
+<link rel='canonical' href='https://JungKyuHyun.github.io/p/micro-frontend-1%ED%8E%B8/'>
+
+<link rel="stylesheet" href="/scss/style.min.450926226e724574a6b936335ea06111f8aeb253d932c86cb2cc807341cd2889.css"><meta property='og:title' content='Micro-Frontend - 1편'>
+<meta property='og:description' content='마이크로 프론트엔드 도입을 고려하며, 자료 정리 중'>
+<meta property='og:url' content='https://JungKyuHyun.github.io/p/micro-frontend-1%ED%8E%B8/'>
+<meta property='og:site_name' content='규현&#39;s blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='micro' /><meta property='article:tag' content='frontend' /><meta property='article:tag' content='architecture' /><meta property='article:published_time' content='2022-04-19T00:00:00&#43;09:00'/><meta property='article:modified_time' content='2022-04-19T00:00:00&#43;09:00'/>
+<meta name="twitter:title" content="Micro-Frontend - 1편">
+<meta name="twitter:description" content="마이크로 프론트엔드 도입을 고려하며, 자료 정리 중">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YB5QERN1V4"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-YB5QERN1V4', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/profile_150x150_huf2c668fa0026ea0f1a84f59f3df02e87_6652_300x0_resize_q75_box.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">규현&#39;s blog</a></h1>
+            <h2 class="site-description">Front-End Developer</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/JungKyuHyun'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/kyu-hyun/'
+                        target="_blank"
+                        title="LinkedIn"
+                    >
+                        
+                        
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286h-.001zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+    fill="none"
+  ></path>
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="https://JungKyuHyun.github.io/" selected>Korean</option>
+                        
+                            <option value="https://JungKyuHyun.github.io/en/" >English</option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>다크 모드</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/frontend/" style="background-color: #42a5f5; color: #000;">
+                Frontend
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/micro-frontend-1%ED%8E%B8/">Micro-Frontend - 1편</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            마이크로 프론트엔드 도입을 고려하며, 자료 정리 중
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 19, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    6 분 정도
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="microservice">Microservice</h2>
+<p>마이크로 프론트엔드(<code>Micro-Frontends</code>)는 요즘 흔히 이야기가 나오는 마이크로서비스 아키텍처에서 영감을 받은 새로운 아키텍처이다. 이 아키텍처의 핵심 아이디어는 모놀리식(<code>monolithic</code>) 코드베이스를 더 작은 부분으로 나누어,</p>
+<ul>
+<li>여러 팀이 독립적으로 작업할 수 있으며</li>
+<li>배포 규모가 작고</li>
+<li>장애는 단일 서비스에만 직접 관련되게 된다.</li>
+<li>또한 프레임워크와 프로그래밍 언어를 개발 팀에 맞게 자유롭게 선택할 수 있으며,</li>
+<li>초기 출시 기간도 짧고 서비스 단위로 명확한 아키텍처 경계를 가지고 있다.</li>
+</ul>
+<p>(당연히 위의 이야기는 잘 구축되었을 때의 해피 케이스이므로 현실에선 저렇지 않다고 너무 모라고 하시지 마시고, 열린 마음으로 계속 글을 읽어주세요ㅎㅎ)</p>
+<p>사실 위의 장점은 마이크로 프론트엔드만의 장점이기 보다는 마이크로서비스가 갖는 장점이긴 한데 대부분 유사한 이점을 가지고 있다. 그리고 당연히 단점도 존재한다.</p>
+<ul>
+<li>디버깅의 복잡성 증가 및 테스트가 어려워짐: 한가지 서비스에서 발생한 작은 버그 코드가 이 서비스에 의존하는 유관 서비스들로 퍼져 서비스가 장애가 난 원인의 근본 원인을 찾기가 더욱 힘들다.</li>
+<li>장애(실패) 지점이 여러 서비스에서 존재</li>
+<li>책임감 부족</li>
+<li>버전 관리 지옥&hellip;</li>
+<li>네트워킹, 지속성 계층, 통신 프로토콜, 보안 및 기타 여러 수준에서의 복합성 처리</li>
+</ul>
+<p>어떤 이야기든 결론은 비슷한거 같지만, 우리 제품의 상황에 맞는 선택과 아키텍처를 적용하는게 중요하다.</p>
+<h2 id="micro-frontend-등장">Micro-frontend 등장</h2>
+<p>사실 마이크로 프론트엔드가 대부분의 서비스에서 필요한 부분은 아니었다. 왜냐하면 모든 비즈니스 로직은 서버에서 실행되었으며 클라이언트는 그 계산 결과만 표시해주는 단순한 씬 클라이언트(<code>thin client</code>)에 불과했기 때문이다.</p>
+<p>하지만 시간이 지나고 우리의 웹은 사용자와 더 많은, 더 나은 상호 작용들이 늘어났으며, 프론트엔드의 크기는 점점 비대해졌다. 이젠 더이상 씬 클라이언트(<code>thin client</code>)라고 부를 수 없게 된 것이다. 또한 프론트엔드의 기술을 매년 진화하고 트랜드가 너무 빨리 바뀌면서 아무리 잘 관리한 프로젝트라도 몇년 후에는 그 것을 관리할 수 있는 개발자를 뽑기조차 힘들어졌다. 그렇다고 무턱대고 프로젝트 전부를 새로운 기술과 코드 베이스로 마이그레이션하거나 리펙토링하는 것은 현실적으로 힘들었으며, 이것들로 인해 새로운 기능들을 미룰 수도 없는 상황이 된다. (사실 <code>JQuery</code>를 사용하지 않게 될 줄은 꿈에도 몰랐다.)</p>
+<p>우리가 가진 모놀리식 접근 방법으로는 해결하기 어려워졌고, 백엔드에서 마이크로 서비스를 통해 비슷하게 문제를 해결했듯이 프론트엔드에서도 이를 도입하여 문제를 해결하고자 했다.</p>
+<p><img src="https://user-images.githubusercontent.com/42884032/163851226-2b94d3df-2f6c-420a-8ce2-290c202f7742.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="micro-frontend drawio (2)"
+	
+	
+></p>
+<h2 id="micro-frontend에-대해-좀더-생각해보자">Micro-frontend에 대해 좀더 생각해보자</h2>
+<p>프론트엔드를 단순하게 마이크로 서비스처럼 나눈다고 생각했을 때는 간단하게 생각할 수도 있지만, 그건 HTML을 여러개 나누어 합친다는 식으로 생각했을 때 이야기이다. 생각보다 복잡한 문제가 많이 존재한다.</p>
+<blockquote>
+<p>전역 변수는? 기존에 번들링 했던 여러 assets들은? 개별 서비스에서 URL에 따라 잘 연동될 수 있을까? 로그인 관리는? 각각의 서비스가 모두 리소스를 새로 만들어 사용한다면 사용자의 컴퓨터의 자원이 근방 고갈될텐데 등&hellip;</p>
+</blockquote>
+<p>위와 같은 이유를 포함해서 많은 기술적, 경험적 이유를 통해 마이크로 프론트엔드를 구축하는 것은 매우 어려운 작업이었으나, 최근에는 이와 관련해 꽤 많은 솔루션과 실제 구축 사례들이 컨퍼런스나 블로그 글 등을 통해 많이 발표되고 있다. 우리의 프론트엔드의 코드베이스가 폭발적으로 증가하고 다른 주기를 갖는 여러 프론트엔드 팀이 계속 생겨나고 있다면 마이크로 프론트엔드는 이때 발생하는 여러 문제를 나름 효과적으로 해결할 수 있는 한 방법이 될 것이다.</p>
+<ul>
+<li>추가 장점1: 큰 모놀리식 저장소보다 여러 개의 작은 저장소를 사용하여, 문서를 쉽게 최신으로 유지할 수 있으며, 더 작은 커밋 히스토리를 유지할 수 있다.</li>
+<li>추가 장점2: 외부 개발자 등과 함께 일할때 코드 베이스를 분리하여 개발을 요청한 범위 이외의 저장소에는 쉽게 접근을 막을 수도 있다.</li>
+<li>추가 장점3: POC(최소 실행 가능한 제품)을 만들어 피드백을 받거나, A/B테스트 등을 하는 등의 비즈니스 관점에서도 마이크로 프론트엔드는 충분히 매력적이다.</li>
+<li>추가 단점1: 어떤 코드가 어떤 저장소에 있는지 아는 것이 미덕이 되고, 시스템을 완전히 이해하려면 훨씬 더 많은 전문 지식이 필요하게 될 수 있다.</li>
+<li>추가 단점2: 유지 보수가 만만치 않다.</li>
+</ul>
+<hr>
+<p>여기까지 정말 간단하게나마 마이크로 서비스부터 마이크로 프론트엔드의 등장까지 요약해 봤다. 이제 조금씩 세부적으로 들여다 보자. 먼저 샘 뉴먼의 저서 마이크로서비스 아키텍처 구축에 나온 마이크로서비스 원칙에 대해서 먼저 살펴보려고 한다.</p>
+<h2 id="microservice-원칙">Microservice 원칙</h2>
+<p>아래와 같은 원칙을 수용하여 마이크로서비스를 개발하는 것을 권한다. 물론 마이크로 프론트라고 예외는 아니다.</p>
+<p><img src="https://user-images.githubusercontent.com/42884032/163852712-a9f100b6-a981-486b-a772-bf6e3a548127.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="https://samnewman.io/talks/principles-of-microservices/"
+	
+	
+></p>
+<p>[출처] <a class="link" href="https://samnewman.io/talks/principles-of-microservices"  target="_blank" rel="noopener"
+    >https://samnewman.io/talks/principles-of-microservices</a></p>
+<h3 id="비즈니스-도메인을-중심으로-모델링">비즈니스 도메인을 중심으로 모델링</h3>
+<p>이는 도메인 중심 설계에서 이야기한 핵심 원칙이다. 각 소프트웨어는 조직이 하는 일을 반영하고, 우리는 비즈니스 전반에 걸쳐 유비쿼터스 언어를 활용하여 도메인 및 하위 도메인을 기반으로 아키텍처를 설계해야 한다는 가정에서 시작한다. 비즈니스 관점에서 모델링할 때 시스템에 대한 더 나은 이해, 비즈니스 도메인의 기술 표현에 대한 더 쉬운 정의, 팀이 운영해야 하는 명확한 경계 등 여러 이점을 제공한다.</p>
+<h3 id="자동화-문화">자동화 문화</h3>
+<p>강력한 자동화 문화를 통해 저 빠르고 안정적인 방식으로 마이크로서비스를 적용할 수 있으며, 마이크로서비스 아키텍처의 핵심 프로세스 중 하나이다.</p>
+<h3 id="구현-세부-정보-숨기기">구현 세부 정보 숨기기</h3>
+<p>동일한 비즈니스 도메인 내에서 서비스를 캡슐화하며, API를 통해 필요한 것만 노출하고 나머지 구현은 숨긴다. 이를 통해 시스템의 나머지 부분에 영향을 주지 않고 내부 논리를 원하는 대로 변경할 수 있다.</p>
+<h3 id="모든-것을-분산화">모든 것을 분산화</h3>
+<p>기술적 문제가 있더라도 모놀리스를 사용하면 조직에서 가장 경험이 많은 사람들이 주요 의사 결정을 내리는 경우가 많고, 직면한 문제에 대해 타협점을 만들고 넘어가는 경우가 많지만, 이러한 결정을 분산화하면 팀이 직면한 문제를 기반으로 기술적인 방향을 취할 수 있으므로 전체 시스템에 긍정적 영향을 미칠 수 있다.</p>
+<h3 id="독립적-배포">독립적 배포</h3>
+<p>마이크로서비스의 핵심 중 하나이다. 모놀리스를 사용하면 제품을 배포하고 롤백하는데 많은 시간이 걸리며 매번 전체 시스템을 배포해야 한다. 하지만 독립적인 배포를 통해 전체 API 계층을 손상시킬 가능성을 줄이면서 자율적으로 배포할 수 있으며, 더 적은 위험으로 마이크로서비스의 새 버전을 출시할 수도 있다.</p>
+<h3 id="실패-격리">실패 격리</h3>
+<p>서비스 장애 등으로 하나 이상의 마이크로서비스에 연결할 수 없는 경우 시스템의 나머지 부분은 사용할 수 있어야 한다. 마이크로서비스가 자율적이고 독릭적이라는 사실은 장애 격리의 개념을 강화한다.</p>
+<h3 id="고도로-관찰-가능">고도로 관찰 가능</h3>
+<p>일반적으로 모놀리식 아키텍처를 선호하는 이유 중 하나는 단일 시스템을 관찰하기 때문이다. 마이크로서비스는 많은 자유와 유연성을 제공하지만 이것들이 무료는 아니다. 로그와 모니터링을 주시해야 하며, 특정 클라이언트 요청을 끝까지 파악할 준비가 되어 있어야 한다. 따라서 시스템을 고도로 관찰 가능하게 유지하는 것은 마이크로서비스의 주요 과제 중 하나이다.</p>
+<h2 id="참고-링크">참고 링크</h2>
+<ul>
+<li><a class="link" href="https://micro-frontends.org"  target="_blank" rel="noopener"
+    >Micro Frontends</a></li>
+</ul>
+<hr>
+<p>2편에서 계속</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/micro/">micro</a>
+        
+            <a href="/tags/frontend/">frontend</a>
+        
+            <a href="/tags/architecture/">architecture</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-contents--wrapper">
+    <h2 class="section-title">관련 글</h2>
+    <div class="related-contents">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%EB%B0%B0%ED%8F%AC-%EC%A0%84%EB%9E%B5deployment-strategies/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">배포 전략(Deployment Strategies)</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="JungKyuHyun/JungKyuHyun.github.io"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+  <section class="copyright">
+    &copy;  2022 규현&#39;s blog
+  </section>
+
+  <section class="powerby">
+     티스토리에서 블로그 이사중.. <br />
+    
+
+    
+
+    
+  </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#microservice">Microservice</a></li>
+    <li><a href="#micro-frontend-등장">Micro-frontend 등장</a></li>
+    <li><a href="#micro-frontend에-대해-좀더-생각해보자">Micro-frontend에 대해 좀더 생각해보자</a></li>
+    <li><a href="#microservice-원칙">Microservice 원칙</a>
+      <ol>
+        <li><a href="#비즈니스-도메인을-중심으로-모델링">비즈니스 도메인을 중심으로 모델링</a></li>
+        <li><a href="#자동화-문화">자동화 문화</a></li>
+        <li><a href="#구현-세부-정보-숨기기">구현 세부 정보 숨기기</a></li>
+        <li><a href="#모든-것을-분산화">모든 것을 분산화</a></li>
+        <li><a href="#독립적-배포">독립적 배포</a></li>
+        <li><a href="#실패-격리">실패 격리</a></li>
+        <li><a href="#고도로-관찰-가능">고도로 관찰 가능</a></li>
+      </ol>
+    </li>
+    <li><a href="#참고-링크">참고 링크</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

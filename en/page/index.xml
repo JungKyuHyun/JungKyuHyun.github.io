@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Pages on KH blog</title>
+        <link>https://JungKyuHyun.github.io/en/page/</link>
+        <description>Recent content in Pages on KH blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ko-kr</language>
+        <lastBuildDate>Sun, 17 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://JungKyuHyun.github.io/en/page/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>About</title>
+        <link>https://JungKyuHyun.github.io/en/about/</link>
+        <pubDate>Sun, 17 Apr 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/en/about/</guid>
+        <description>&lt;p&gt;Although I&amp;rsquo;m not good at English, I&amp;rsquo;ll introduce myself.&lt;/p&gt;
+&lt;p&gt;Hi, I&amp;rsquo;m KyuHyun Jung, working as a frontend developer in Seoul, Korea. I&amp;rsquo;m an enthusiastic software enginner with 3 years of experience.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Development of webview-based responsive application&lt;/li&gt;
+&lt;li&gt;Development of payment/delivery/search UI in e-commerce company&lt;/li&gt;
+&lt;li&gt;Development of internal/external admins and UI/UX improvement in e-commerce companies&lt;/li&gt;
+&lt;li&gt;UI planning and UI development of user/administrator console&lt;/li&gt;
+&lt;li&gt;Developing file download API and file download UI using AWS Signed-url function&lt;/li&gt;
+&lt;li&gt;Improved logic related to settlement calculation of nodejs-based backend application and added mongoDB compound index to improve speed by 35%&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I am always studying for my growth as a developer and the development of my products, and I am convinced that today&amp;rsquo;s code is more valuable for business than yesterday&amp;rsquo;s code, and the code quality is also making better code.&lt;/p&gt;
+&lt;p&gt;Thanks.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Categories on 규현&#39;s blog</title>
+        <link>https://JungKyuHyun.github.io/categories/</link>
+        <description>Recent content in Categories on 규현&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ko-kr</language>
+        <lastBuildDate>Sun, 24 Apr 2022 00:00:00 +0900</lastBuildDate><atom:link href="https://JungKyuHyun.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Frontend</title>
+        <link>https://JungKyuHyun.github.io/categories/frontend/</link>
+        <pubDate>Sun, 24 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/categories/frontend/</guid>
+        <description>&lt;img src="https://JungKyuHyun.github.io/categories/frontend/browser-svgrepo-com.svg" alt="Featured image of post Frontend" /&gt;</description>
+        </item>
+        <item>
+        <title>React</title>
+        <link>https://JungKyuHyun.github.io/categories/react/</link>
+        <pubDate>Wed, 20 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/categories/react/</guid>
+        <description>&lt;img src="https://JungKyuHyun.github.io/categories/react/react-icon.svg" alt="Featured image of post React" /&gt;</description>
+        </item>
+        <item>
+        <title>Life-hack</title>
+        <link>https://JungKyuHyun.github.io/categories/life-hack/</link>
+        <pubDate>Mon, 18 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/categories/life-hack/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Go</title>
+        <link>https://JungKyuHyun.github.io/categories/go/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/categories/go/</guid>
+        <description>&lt;img src="https://JungKyuHyun.github.io/categories/go/golang.svg" alt="Featured image of post Go" /&gt;</description>
+        </item>
+        <item>
+        <title>Javascript</title>
+        <link>https://JungKyuHyun.github.io/categories/javascript/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/categories/javascript/</guid>
+        <description>&lt;img src="https://JungKyuHyun.github.io/categories/javascript/js.png" alt="Featured image of post Javascript" /&gt;</description>
+        </item>
+        <item>
+        <title>Life-hack</title>
+        <link>https://JungKyuHyun.github.io/categories/lifehack/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/categories/lifehack/</guid>
+        <description>&lt;img src="https://JungKyuHyun.github.io/categories/lifehack/tap-svgrepo-com.svg" alt="Featured image of post Life-hack" /&gt;</description>
+        </item>
+        <item>
+        <title>TypeScript</title>
+        <link>https://JungKyuHyun.github.io/categories/typescript/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/categories/typescript/</guid>
+        <description>&lt;img src="https://JungKyuHyun.github.io/categories/typescript/ts.svg" alt="Featured image of post TypeScript" /&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='티스토리, 깃북 안녕! 오늘이 마지막이야...'><title>Hugo로 이사하기</title>
+
+<link rel='canonical' href='https://JungKyuHyun.github.io/p/hugo%EB%A1%9C-%EC%9D%B4%EC%82%AC%ED%95%98%EA%B8%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.450926226e724574a6b936335ea06111f8aeb253d932c86cb2cc807341cd2889.css"><meta property='og:title' content='Hugo로 이사하기'>
+<meta property='og:description' content='티스토리, 깃북 안녕! 오늘이 마지막이야...'>
+<meta property='og:url' content='https://JungKyuHyun.github.io/p/hugo%EB%A1%9C-%EC%9D%B4%EC%82%AC%ED%95%98%EA%B8%B0/'>
+<meta property='og:site_name' content='규현&#39;s blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='hugo' /><meta property='article:tag' content='tstory' /><meta property='article:tag' content='gitbook' /><meta property='article:published_time' content='2022-04-18T00:00:00&#43;09:00'/><meta property='article:modified_time' content='2022-04-18T00:00:00&#43;09:00'/><meta property='og:image' content='https://JungKyuHyun.github.io/p/hugo%EB%A1%9C-%EC%9D%B4%EC%82%AC%ED%95%98%EA%B8%B0/bye-gitbook.png' />
+<meta name="twitter:title" content="Hugo로 이사하기">
+<meta name="twitter:description" content="티스토리, 깃북 안녕! 오늘이 마지막이야..."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://JungKyuHyun.github.io/p/hugo%EB%A1%9C-%EC%9D%B4%EC%82%AC%ED%95%98%EA%B8%B0/bye-gitbook.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YB5QERN1V4"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-YB5QERN1V4', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/profile_150x150_huf2c668fa0026ea0f1a84f59f3df02e87_6652_300x0_resize_q75_box.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">규현&#39;s blog</a></h1>
+            <h2 class="site-description">Front-End Developer</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/JungKyuHyun'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/kyu-hyun/'
+                        target="_blank"
+                        title="LinkedIn"
+                    >
+                        
+                        
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286h-.001zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+    fill="none"
+  ></path>
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="https://JungKyuHyun.github.io/" selected>Korean</option>
+                        
+                            <option value="https://JungKyuHyun.github.io/en/" >English</option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>다크 모드</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/hugo%EB%A1%9C-%EC%9D%B4%EC%82%AC%ED%95%98%EA%B8%B0/">
+                <img src="/p/hugo%EB%A1%9C-%EC%9D%B4%EC%82%AC%ED%95%98%EA%B8%B0/bye-gitbook_hu2f6adbe75a18b51fec71244f39c460ed_65361_800x0_resize_box_3.png"
+                        srcset="/p/hugo%EB%A1%9C-%EC%9D%B4%EC%82%AC%ED%95%98%EA%B8%B0/bye-gitbook_hu2f6adbe75a18b51fec71244f39c460ed_65361_800x0_resize_box_3.png 800w, /p/hugo%EB%A1%9C-%EC%9D%B4%EC%82%AC%ED%95%98%EA%B8%B0/bye-gitbook_hu2f6adbe75a18b51fec71244f39c460ed_65361_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="196" 
+                        loading="lazy"
+                        alt="Featured image of post Hugo로 이사하기" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/life-hack/" >
+                Life-hack
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/hugo%EB%A1%9C-%EC%9D%B4%EC%82%AC%ED%95%98%EA%B8%B0/">Hugo로 이사하기</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            티스토리, 깃북 안녕! 오늘이 마지막이야...
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 18, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 분 정도
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="근황">근황</h2>
+<p>오랫만에 다시 글을 쓰는거 같다. 의도적으로 안썼다기보단 사실 너무 바빴다는게 맞을거 같다. 특히 최근에는 일이 많다기보다는 go언어로 백엔드 업무를 처음 배우다보니 글을 쓰며 공부할 수가 없었다. 업무에 조금 익숙해 지면 관련된 내용들은 차근차근 포스팅할 예정이다.</p>
+<h2 id="hugo와의-첫-만남">hugo와의 첫 만남</h2>
+<p>근데 지금이 조금 익숙해진 시점이긴 하다. 물론 배울게 아직 산덤이지만, 일과 후에는 조금 시간이 남아 다시 공부를 하면서 글을 다시 써볼려고 한다. 근데 다시 시작해 보려고 하니 쓰기가 싫어졌다. 왜냐,</p>
+<p><img src="https://user-images.githubusercontent.com/42884032/163723318-fb3a55c5-aa6e-4108-b85c-8a9b76648e5c.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+></p>
+<p>나의 블로그의 가독성을 좋지 못했다. 다시 봐야지 하고 내가 내 글을 봐도 가독성이 늘 떨어진다고 생각했지만, 테마를 바꾸기에는 다시 설정을 하는 수고가 싫었으며, 테마를 바꾼다고 엄청 나아질 것이라고 생각도 하지 않았다(물론 잘 사용하시는 분들도 있지만, 적어도 나에겐 말이다). 그래서 깃북을 사용해 왔는데, 깃북을 확실히 티스토리보다 가독성이 훨씬 좋았으며, 목차별로 내용을 잘 그룹지을 수가 있는 점이 좋았다. 하지만 UI 커스텀이 너무 제한적이라 내가 할 수 있는 것들이 없었다. 그렇게 고민하던중 현회사의 팀장님이 블로그를 변경하신다는 말을 듣고 어떤 프로젝트를 사용하시는지 여쭤봤다. 이렇게 알게된 것이 바로 <code>hugo</code>이다.</p>
+<h2 id="다양한-theme-반응형도-되고-ruby도-안쓰네-">다양한 Theme, 반응형도 되고, Ruby도 안쓰네? 😃</h2>
+<p>과거 <code>jekyll</code>를 통해 깃허브 블로그를 만들었으나, 처음 만들어 보는거기도 하고 처음 접해보는 루비 명령어들이 너무 낯설었다. 물론 처음만 하면 된다고 하지만, 그때의 경험이 별로여서 그런지 <code>jekyll</code>는 싫었는데, <code>hugo</code>는 아주 매력적이었다. <code>go</code>로 작성하여 나중에 기여도 할 수 있었고, 이미지 프로세싱이나 국제화 등 더 많은 기능이 제공되어 고민 없이 선택하게 되었다.</p>
+<h2 id="설치-방법github-페이지랑-연동하기">설치 방법(github 페이지랑 연동하기)</h2>
+<p>먼저 두 개의 레포를 준비한다. <code>github action</code>을 통해 하나만 사용해도 될거 같긴한데, 여튼 남들이 다 하는데로 두개 준비했다.</p>
+<h3 id="repo-2개-준비">Repo 2개 준비</h3>
+<ul>
+<li>원하는 이름의 repo 하나(이하 <code>blog repo</code>로 명명)</li>
+<li><code>{username}.github.io</code>로 네이밍한 repo 하나</li>
+</ul>
+<h3 id="blog-repo에-기존-작업-내용-동기화push">blog repo에 기존 작업 내용 동기화(push)</h3>
+<p><code>blog repo</code>에 기존 작업 내용 동기화(push)한다. 내가 작업한 내용들은 기본적으로 이 repo에 보관할 것이다.</p>
+<h3 id="root-폴더에-public-폴더가-있다면-삭제">root 폴더에 public 폴더가 있다면 삭제</h3>
+<p><code>root</code> 폴더에 <code>public</code> 폴더가 있다면 삭제한다. 나중엔 안해도 되었는데, 초반에는 이 부분에서도 에러가 났다.</p>
+<h3 id="git-submodule-추가">git submodule 추가</h3>
+<p>서브 모듈을 만들어 빌드된 <code>public</code> 폴더가 다른 <code>remote origin</code>을 가지게 설정해 주는 작업이다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># ex) 나의 경우 git submodule add --name khblog -b main https://github.com/JungKyuHyun/JungKyuHyun.github.io.git public</span>
+</span></span><span class="line"><span class="cl">$ git submodule add --name <span class="o">{</span>서브모드 별명<span class="o">(</span>자유<span class="o">)}</span> -b main https://github.com/<span class="o">{</span>username<span class="o">}</span>/<span class="o">{</span>username<span class="o">}</span>.github.io.git public
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 아래와 같은 응답이 나온다면 잘 진행된 상황.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># warning: You appear to have cloned an empty repository.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># fatal: &#39;origin/main&#39; is not a commit and a branch &#39;main&#39; cannot be created from it</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Unable to checkout submodule &#39;public&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="deploysh-작성하기">deploy.sh 작성하기</h3>
+<p><code>root folder</code>에 <code>deploy.sh</code> 파일 생성 및 아래 코드를 붙여 넣는다. 몇가지 추가 설명은 스크립트에 같이 써놨으며 추가 설명에 해당되는 내용이 없다면 수정할 내용도 없다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\\033[0;32mDeploying updates to GitHub...\\033[0m&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Build the project.</span>
+</span></span><span class="line"><span class="cl">hugo <span class="c1"># if using a theme, replace with `hugo -t &lt;YOURTHEME&gt;`</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 테마를 사용한다면 테마 이름을 쓰라고 적혀있지만, hugo module로 받았다면 이 부분은 별도로 수정하지 않아도 되는거 같다.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 오히려 수정하면, theme이 아래 폴더가 텅텅 비었다는 에러가 나온다.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Go To Public folder</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> public
+</span></span><span class="line"><span class="cl"><span class="c1"># Add changes to git.</span>
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Commit changes.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;rebuilding site `date`&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">1</span> <span class="o">]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">then</span> <span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;</span><span class="nv">$msg</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Push source and build repos. (master 브랜치인 경우 master)</span>
+</span></span><span class="line"><span class="cl">git push origin main
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Come Back up to the Project Root</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ..
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="deploy">deploy!</h3>
+<p>아래 코드를 콘솔 창에 입력하면, 빌드된 내역이 <code>public</code>에 담기고 <code>{username}.github.io</code> 레포로 push되는 것을 확인할 수 있다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ./deploy.sh <span class="s2">&#34;커밋 메시지&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(Optional) 만약 권한 관련 에러가 나온다면, 권한을 부여해 주자.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ chmod <span class="m">777</span> deploy.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="연동-작업-완료-후">연동 작업 완료 후</h3>
+<p>글이나 테마 등을 수정하여 호스팅된 깃허브 페이지에 반영하고 싶다면, 아래 명령어를 통해 반영하면 된다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ./deploy.sh <span class="s2">&#34;커밋 메시지&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>만약 글 작성이 끝나지 않았다면 blog-repo로만 push하면 실제 호스팅된 블로그에는 반영이 안되게 하면 된다.</p>
+<hr>
+<p>글을 테스트 해볼겸 적은 내용이라 두서가 없거나 내용을 조금 뺀 것도 있으니 참고 부탁드립니다 :)</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/hugo/">hugo</a>
+        
+            <a href="/tags/tstory/">tstory</a>
+        
+            <a href="/tags/gitbook/">gitbook</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="JungKyuHyun/JungKyuHyun.github.io"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+  <section class="copyright">
+    &copy;  2022 규현&#39;s blog
+  </section>
+
+  <section class="powerby">
+     티스토리에서 블로그 이사중.. <br />
+    
+
+    
+
+    
+  </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#근황">근황</a></li>
+    <li><a href="#hugo와의-첫-만남">hugo와의 첫 만남</a></li>
+    <li><a href="#다양한-theme-반응형도-되고-ruby도-안쓰네-">다양한 Theme, 반응형도 되고, Ruby도 안쓰네? 😃</a></li>
+    <li><a href="#설치-방법github-페이지랑-연동하기">설치 방법(github 페이지랑 연동하기)</a>
+      <ol>
+        <li><a href="#repo-2개-준비">Repo 2개 준비</a></li>
+        <li><a href="#blog-repo에-기존-작업-내용-동기화push">blog repo에 기존 작업 내용 동기화(push)</a></li>
+        <li><a href="#root-폴더에-public-폴더가-있다면-삭제">root 폴더에 public 폴더가 있다면 삭제</a></li>
+        <li><a href="#git-submodule-추가">git submodule 추가</a></li>
+        <li><a href="#deploysh-작성하기">deploy.sh 작성하기</a></li>
+        <li><a href="#deploy">deploy!</a></li>
+        <li><a href="#연동-작업-완료-후">연동 작업 완료 후</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

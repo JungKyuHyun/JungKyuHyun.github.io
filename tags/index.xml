@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Tags on 규현&#39;s blog</title>
+        <link>https://JungKyuHyun.github.io/tags/</link>
+        <description>Recent content in Tags on 규현&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ko-kr</language>
+        <lastBuildDate>Sun, 24 Apr 2022 00:00:00 +0900</lastBuildDate><atom:link href="https://JungKyuHyun.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>architecture</title>
+        <link>https://JungKyuHyun.github.io/tags/architecture/</link>
+        <pubDate>Sun, 24 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/tags/architecture/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>frontend</title>
+        <link>https://JungKyuHyun.github.io/tags/frontend/</link>
+        <pubDate>Sun, 24 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/tags/frontend/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>micro</title>
+        <link>https://JungKyuHyun.github.io/tags/micro/</link>
+        <pubDate>Sun, 24 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/tags/micro/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>demo</title>
+        <link>https://JungKyuHyun.github.io/tags/demo/</link>
+        <pubDate>Wed, 20 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/tags/demo/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>example</title>
+        <link>https://JungKyuHyun.github.io/tags/example/</link>
+        <pubDate>Wed, 20 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/tags/example/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>react</title>
+        <link>https://JungKyuHyun.github.io/tags/react/</link>
+        <pubDate>Wed, 20 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/tags/react/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>typescript</title>
+        <link>https://JungKyuHyun.github.io/tags/typescript/</link>
+        <pubDate>Wed, 20 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/tags/typescript/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>window.confirm</title>
+        <link>https://JungKyuHyun.github.io/tags/window.confirm/</link>
+        <pubDate>Wed, 20 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/tags/window.confirm/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>gitbook</title>
+        <link>https://JungKyuHyun.github.io/tags/gitbook/</link>
+        <pubDate>Mon, 18 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/tags/gitbook/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>hugo</title>
+        <link>https://JungKyuHyun.github.io/tags/hugo/</link>
+        <pubDate>Mon, 18 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/tags/hugo/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>tstory</title>
+        <link>https://JungKyuHyun.github.io/tags/tstory/</link>
+        <pubDate>Mon, 18 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/tags/tstory/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>

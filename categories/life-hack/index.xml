@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Life-hack on 규현&#39;s blog</title>
+        <link>https://JungKyuHyun.github.io/categories/life-hack/</link>
+        <description>Recent content in Life-hack on 규현&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ko-kr</language>
+        <lastBuildDate>Mon, 18 Apr 2022 00:00:00 +0900</lastBuildDate><atom:link href="https://JungKyuHyun.github.io/categories/life-hack/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Hugo로 이사하기</title>
+        <link>https://JungKyuHyun.github.io/p/hugo%EB%A1%9C-%EC%9D%B4%EC%82%AC%ED%95%98%EA%B8%B0/</link>
+        <pubDate>Mon, 18 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/p/hugo%EB%A1%9C-%EC%9D%B4%EC%82%AC%ED%95%98%EA%B8%B0/</guid>
+        <description>&lt;img src="https://JungKyuHyun.github.io/p/hugo%EB%A1%9C-%EC%9D%B4%EC%82%AC%ED%95%98%EA%B8%B0/bye-gitbook.png" alt="Featured image of post Hugo로 이사하기" /&gt;&lt;h2 id=&#34;근황&#34;&gt;근황&lt;/h2&gt;
+&lt;p&gt;오랫만에 다시 글을 쓰는거 같다. 의도적으로 안썼다기보단 사실 너무 바빴다는게 맞을거 같다. 특히 최근에는 일이 많다기보다는 go언어로 백엔드 업무를 처음 배우다보니 글을 쓰며 공부할 수가 없었다. 업무에 조금 익숙해 지면 관련된 내용들은 차근차근 포스팅할 예정이다.&lt;/p&gt;
+&lt;h2 id=&#34;hugo와의-첫-만남&#34;&gt;hugo와의 첫 만남&lt;/h2&gt;
+&lt;p&gt;근데 지금이 조금 익숙해진 시점이긴 하다. 물론 배울게 아직 산덤이지만, 일과 후에는 조금 시간이 남아 다시 공부를 하면서 글을 다시 써볼려고 한다. 근데 다시 시작해 보려고 하니 쓰기가 싫어졌다. 왜냐,&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://user-images.githubusercontent.com/42884032/163723318-fb3a55c5-aa6e-4108-b85c-8a9b76648e5c.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;나의 블로그의 가독성을 좋지 못했다. 다시 봐야지 하고 내가 내 글을 봐도 가독성이 늘 떨어진다고 생각했지만, 테마를 바꾸기에는 다시 설정을 하는 수고가 싫었으며, 테마를 바꾼다고 엄청 나아질 것이라고 생각도 하지 않았다(물론 잘 사용하시는 분들도 있지만, 적어도 나에겐 말이다). 그래서 깃북을 사용해 왔는데, 깃북을 확실히 티스토리보다 가독성이 훨씬 좋았으며, 목차별로 내용을 잘 그룹지을 수가 있는 점이 좋았다. 하지만 UI 커스텀이 너무 제한적이라 내가 할 수 있는 것들이 없었다. 그렇게 고민하던중 현회사의 팀장님이 블로그를 변경하신다는 말을 듣고 어떤 프로젝트를 사용하시는지 여쭤봤다. 이렇게 알게된 것이 바로 &lt;code&gt;hugo&lt;/code&gt;이다.&lt;/p&gt;
+&lt;h2 id=&#34;다양한-theme-반응형도-되고-ruby도-안쓰네-&#34;&gt;다양한 Theme, 반응형도 되고, Ruby도 안쓰네? 😃&lt;/h2&gt;
+&lt;p&gt;과거 &lt;code&gt;jekyll&lt;/code&gt;를 통해 깃허브 블로그를 만들었으나, 처음 만들어 보는거기도 하고 처음 접해보는 루비 명령어들이 너무 낯설었다. 물론 처음만 하면 된다고 하지만, 그때의 경험이 별로여서 그런지 &lt;code&gt;jekyll&lt;/code&gt;는 싫었는데, &lt;code&gt;hugo&lt;/code&gt;는 아주 매력적이었다. &lt;code&gt;go&lt;/code&gt;로 작성하여 나중에 기여도 할 수 있었고, 이미지 프로세싱이나 국제화 등 더 많은 기능이 제공되어 고민 없이 선택하게 되었다.&lt;/p&gt;
+&lt;h2 id=&#34;설치-방법github-페이지랑-연동하기&#34;&gt;설치 방법(github 페이지랑 연동하기)&lt;/h2&gt;
+&lt;p&gt;먼저 두 개의 레포를 준비한다. &lt;code&gt;github action&lt;/code&gt;을 통해 하나만 사용해도 될거 같긴한데, 여튼 남들이 다 하는데로 두개 준비했다.&lt;/p&gt;
+&lt;h3 id=&#34;repo-2개-준비&#34;&gt;Repo 2개 준비&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;원하는 이름의 repo 하나(이하 &lt;code&gt;blog repo&lt;/code&gt;로 명명)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;{username}.github.io&lt;/code&gt;로 네이밍한 repo 하나&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;blog-repo에-기존-작업-내용-동기화push&#34;&gt;blog repo에 기존 작업 내용 동기화(push)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;blog repo&lt;/code&gt;에 기존 작업 내용 동기화(push)한다. 내가 작업한 내용들은 기본적으로 이 repo에 보관할 것이다.&lt;/p&gt;
+&lt;h3 id=&#34;root-폴더에-public-폴더가-있다면-삭제&#34;&gt;root 폴더에 public 폴더가 있다면 삭제&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;root&lt;/code&gt; 폴더에 &lt;code&gt;public&lt;/code&gt; 폴더가 있다면 삭제한다. 나중엔 안해도 되었는데, 초반에는 이 부분에서도 에러가 났다.&lt;/p&gt;
+&lt;h3 id=&#34;git-submodule-추가&#34;&gt;git submodule 추가&lt;/h3&gt;
+&lt;p&gt;서브 모듈을 만들어 빌드된 &lt;code&gt;public&lt;/code&gt; 폴더가 다른 &lt;code&gt;remote origin&lt;/code&gt;을 가지게 설정해 주는 작업이다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ex) 나의 경우 git submodule add --name khblog -b main https://github.com/JungKyuHyun/JungKyuHyun.github.io.git public&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ git submodule add --name &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;서브모드 별명&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;자유&lt;span class=&#34;o&#34;&gt;)}&lt;/span&gt; -b main https://github.com/&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;username&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;/&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;username&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;.github.io.git public
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 아래와 같은 응답이 나온다면 잘 진행된 상황.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# warning: You appear to have cloned an empty repository.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# fatal: &amp;#39;origin/main&amp;#39; is not a commit and a branch &amp;#39;main&amp;#39; cannot be created from it&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Unable to checkout submodule &amp;#39;public&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;deploysh-작성하기&#34;&gt;deploy.sh 작성하기&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;root folder&lt;/code&gt;에 &lt;code&gt;deploy.sh&lt;/code&gt; 파일 생성 및 아래 코드를 붙여 넣는다. 몇가지 추가 설명은 스크립트에 같이 써놨으며 추가 설명에 해당되는 내용이 없다면 수정할 내용도 없다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -e &lt;span class=&#34;s2&#34;&gt;&amp;#34;\\033[0;32mDeploying updates to GitHub...\\033[0m&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Build the project.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hugo &lt;span class=&#34;c1&#34;&gt;# if using a theme, replace with `hugo -t &amp;lt;YOURTHEME&amp;gt;`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 테마를 사용한다면 테마 이름을 쓰라고 적혀있지만, hugo module로 받았다면 이 부분은 별도로 수정하지 않아도 되는거 같다.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 오히려 수정하면, theme이 아래 폴더가 텅텅 비었다는 에러가 나온다.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Go To Public folder&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; public
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Add changes to git.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git add .
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Commit changes.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;msg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;rebuilding site `date`&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$#&lt;/span&gt; -eq &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;msg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$1&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git commit -m &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$msg&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Push source and build repos. (master 브랜치인 경우 master)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push origin main
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Come Back up to the Project Root&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ..
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;deploy&#34;&gt;deploy!&lt;/h3&gt;
+&lt;p&gt;아래 코드를 콘솔 창에 입력하면, 빌드된 내역이 &lt;code&gt;public&lt;/code&gt;에 담기고 &lt;code&gt;{username}.github.io&lt;/code&gt; 레포로 push되는 것을 확인할 수 있다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ ./deploy.sh &lt;span class=&#34;s2&#34;&gt;&amp;#34;커밋 메시지&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;(Optional) 만약 권한 관련 에러가 나온다면, 권한을 부여해 주자.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ chmod &lt;span class=&#34;m&#34;&gt;777&lt;/span&gt; deploy.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;연동-작업-완료-후&#34;&gt;연동 작업 완료 후&lt;/h3&gt;
+&lt;p&gt;글이나 테마 등을 수정하여 호스팅된 깃허브 페이지에 반영하고 싶다면, 아래 명령어를 통해 반영하면 된다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ ./deploy.sh &lt;span class=&#34;s2&#34;&gt;&amp;#34;커밋 메시지&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;만약 글 작성이 끝나지 않았다면 blog-repo로만 push하면 실제 호스팅된 블로그에는 반영이 안되게 하면 된다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;글을 테스트 해볼겸 적은 내용이라 두서가 없거나 내용을 조금 뺀 것도 있으니 참고 부탁드립니다 :)&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
