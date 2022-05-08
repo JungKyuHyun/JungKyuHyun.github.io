@@ -6,20 +6,44 @@
         <description>Recent content in Tags on 규현&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Sun, 24 Apr 2022 00:00:00 +0900</lastBuildDate><atom:link href="https://JungKyuHyun.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 28 Apr 2022 00:00:00 +0900</lastBuildDate><atom:link href="https://JungKyuHyun.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>frontend</title>
+        <link>https://JungKyuHyun.github.io/tags/frontend/</link>
+        <pubDate>Thu, 28 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/tags/frontend/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>javascript</title>
+        <link>https://JungKyuHyun.github.io/tags/javascript/</link>
+        <pubDate>Thu, 28 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/tags/javascript/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>service worker</title>
+        <link>https://JungKyuHyun.github.io/tags/service-worker/</link>
+        <pubDate>Thu, 28 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/tags/service-worker/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>web api</title>
+        <link>https://JungKyuHyun.github.io/tags/web-api/</link>
+        <pubDate>Thu, 28 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/tags/web-api/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>architecture</title>
         <link>https://JungKyuHyun.github.io/tags/architecture/</link>
         <pubDate>Sun, 24 Apr 2022 00:00:00 +0900</pubDate>
         
         <guid>https://JungKyuHyun.github.io/tags/architecture/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>frontend</title>
-        <link>https://JungKyuHyun.github.io/tags/frontend/</link>
-        <pubDate>Sun, 24 Apr 2022 00:00:00 +0900</pubDate>
-        
-        <guid>https://JungKyuHyun.github.io/tags/frontend/</guid>
         <description></description>
         </item>
         <item>

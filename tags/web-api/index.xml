@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Frontend on 규현&#39;s blog</title>
-        <link>https://JungKyuHyun.github.io/categories/frontend/</link>
-        <description>Recent content in Frontend on 규현&#39;s blog</description>
+        <title>web api on 규현&#39;s blog</title>
+        <link>https://JungKyuHyun.github.io/tags/web-api/</link>
+        <description>Recent content in web api on 규현&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Thu, 28 Apr 2022 00:00:00 +0900</lastBuildDate><atom:link href="https://JungKyuHyun.github.io/categories/frontend/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 28 Apr 2022 00:00:00 +0900</lastBuildDate><atom:link href="https://JungKyuHyun.github.io/tags/web-api/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>서비스 워커(Service Worker) 활용 1</title>
         <link>https://JungKyuHyun.github.io/p/%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%9B%8C%EC%BB%A4service-worker-%ED%99%9C%EC%9A%A9-1/</link>
         <pubDate>Thu, 28 Apr 2022 00:00:00 +0900</pubDate>
@@ -242,181 +242,6 @@
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://developer.mozilla.org/ko/docs/Web/API/Service_Worker_API/Using_Service_Workers&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://developer.mozilla.org/ko/docs/Web/API/Service_Worker_API/Using_Service_Workers&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description>
-        </item>
-        <item>
-        <title>배포 전략(Deployment Strategies)</title>
-        <link>https://JungKyuHyun.github.io/p/%EB%B0%B0%ED%8F%AC-%EC%A0%84%EB%9E%B5deployment-strategies/</link>
-        <pubDate>Sun, 24 Apr 2022 00:00:00 +0900</pubDate>
-        
-        <guid>https://JungKyuHyun.github.io/p/%EB%B0%B0%ED%8F%AC-%EC%A0%84%EB%9E%B5deployment-strategies/</guid>
-        <description>&lt;!-- raw HTML omitted --&gt;
-&lt;h2 id=&#34;배포-전략deployment-strategies&#34;&gt;배포 전략(Deployment Strategies)&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;Micro-Frontend&lt;/code&gt;(이하 &lt;code&gt;MFE&lt;/code&gt;)를 도입하기전 배포 전략을 어떻게 세울지 고민해 보았다. &lt;code&gt;MFE&lt;/code&gt;는 본질적으로는 독립적으로 배포되어야 하고 전체 코드베이스에 영향을 주지 않고 코드의 일부만 배포하게 된다.&lt;/p&gt;
-&lt;p&gt;뭐 일단 나중에야 그렇게 되겠지만, 지금 당장 우리의 애플리케이션은 프로덕션 환경에서 이미 실행중이며, 이럴때는 어떻게 진행되면 좋을까. 여러가지 배포 전략을 살펴보며 개념을 익혀보자.&lt;/p&gt;
-&lt;h2 id=&#34;빅뱅-릴리스big-bang-releases&#34;&gt;빅뱅 릴리스(Big Bang Releases)&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;여러분은 우리 비즈니스의 복잡성을 이해하지 못해요 - 빅뱅 옹호자 -&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;빅뱅 릴리스는 프로젝트에 너무 많은 위험을 가져다 주지만, 특히 폭포수(&lt;code&gt;waterfall&lt;/code&gt;) 모델에서 많이 사용되던 방식이다. 빅뱅 릴리스란 간단하게 말해 완전하게 기능을 갖는 것을 목표로 일부 코드에 대해 몇 달 동안 작업하는 경우이다. 그리고 이 릴리스를 통해 우리는 우리의 고객이 멋진 새로운 기능을 잘 사용하며 잘 적응해 줄 것이라고 믿는다.&lt;/p&gt;
-&lt;p&gt;하지만 이러한 빅뱅 릴리스는 그 릴리스 범위에 대한 가정을 테스트하지 않고 범위를 엄격하게 정의하고 실행하게 된다. 실제 테스트는 이미 그 릴리스를 위한 상당한 투자가 이루어진 이후에나 가능하게 된다.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;과연 모든 세부 사항을 정말 모두 고려할 수 있었을까, 완제품을 확신할 수 있는가&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;또한 빅뱅 릴리스는 일반적으로 어떤 특정 기능의 완전한(100%) 추가를 목표로 하므로 미치치 못하는 높은 기대치를 설정하게 한다. 오랜 시간이 소요되며 상당한 투자가 발생했기 때문이다. 당연히 기본 사항을 변경하는 것은 매우 힘들게 된다. 이미 모든 작업은 가정된 기능과 기능을 지원하도록 설계되었으며, 변경시 비용이 급증하면서 변경이 어렵거나 큰 비용의 증가 및 릴리스 기간이 미뤄지는 경우가 발생할 것이다. (때로는 이 릴리스에 관련된 사람이 집을 못가고 계속 야근을 하며 변경사항에 대응하게 된다.)&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;빅뱅 릴리스는 규모가 커지면 커질수록 모든 계란을 한 바구니에 담는 것과 동일하다. 큰 위험이 따르며, 문제가 생겨서 깨진 계란이 생겼더라도 다시 처음으로 돌아가긴 힘들다&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;문제는 여기가 끝나지 않는다. 만약 해당 기능이 기다린 유저의 기대에 부응하지 못하거나 높은 실적(트래픽 증가, 매출 증가, 회원수 증가 등)으로 이루어지지 못한다면 다 같이 고생한 팀은 팀대로 인정받지 못하고, 반대로 기다렸던 사용자들도 실망을 안고 우리의 애플리케이션을 떠나갈 수도 있다. 또한 중간에 트랜드가 바뀌는 경우 경쟁사를 따라가지 못하거나 트랜드에 뒤쳐진 것을 큰 공을 들여 개발하게되는 것일 수도 있다.&lt;/p&gt;
-&lt;p&gt;그래서 우리는 빅뱅 릴리스보다는 사용자에게 작은 범위의 유용한 기능(기능, 프로모션, 변화 등)을 제공하고 발견 사항을 기반으로 더 많은 릴리스와 실제 문제를 해결, 가정 검증에 중점을 두어야 한다. 세상은 우리의 생각보다 더 빠르게 변화하며, 유일하게 지속 가능한 접근 방식은 작게 시작하여 생각을 테스트하고 반복을 통해 최적의 솔루션을 향해 점진적으로 진행하는 것이다.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;빅뱅보단 소규모 출시를 하자&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;문득-궁금해-졌다-빅뱅-릴리스는-항상-옳지-못한가&#34;&gt;문득 궁금해 졌다. 빅뱅 릴리스는 항상 옳지 못한가?&lt;/h3&gt;
-&lt;p&gt;당연히 아니다. 모든 것에는 은총알은 없든 &amp;lsquo;모든&amp;rsquo;이라는 단어를 대체할 수는 없다. 하지만 대부분의 경우 웹은 변화가 빠르고 사용자(소비자)들의 요구사항과 성향이 빠르게 변하기 때문에 빅뱅보단 소규모 릴리스가 더 적합한 것이다.&lt;/p&gt;
-&lt;p&gt;반면 제품 개발/연구가 필요한 부분이라면 조금 다를 수 있다. 예를 들어 애플의 아이폰이나 삼성의 갤럭시 휴대폰을 보자. 기존보다 더 높은, 더 좋은 기능과 품질을 타켓으로 제품을 만들어야하고 더 나은, 더 최신의 디자인을 선보여야 한다. 이는 연구와 개발이 필요하다. 이런 경우는 빅뱅 릴리스를 통해 출시 일정을 보다 명확하게 잡고 각 부서에서는 그 일정에 맞춰 마케팅, 영업 전략, 사업 전략을 세우고 더 많은 시간을 할애할 수 있다.&lt;/p&gt;
-&lt;p&gt;또한 이렇게 개발한 고도화된 기술의 제품은 경쟁 제품들이 이 제품을 따라잡기까지 시간이 걸리기 때문에 경쟁 우위를 확보할 수도 있으며, 일정 기간 꾸준한 수익을 가져다 줄 수 있다.&lt;/p&gt;
-&lt;h2 id=&#34;다시-본론으로&#34;&gt;다시 본론으로&lt;/h2&gt;
-&lt;p&gt;다시 본론으로 돌아와서, 이러한 빅뱅 릴리스는 &lt;code&gt;MFE&lt;/code&gt;에는 적합하지 않다. 대신 소규모 사용자 그룹에게 새로운 버전의 &lt;code&gt;MFE&lt;/code&gt;를 릴리스할 것이며, 이를 위한 몇가지 배포 전략에 대해 살펴보자.&lt;/p&gt;
-&lt;h2 id=&#34;blue-green-deployment&#34;&gt;Blue-Green Deployment&lt;/h2&gt;
-&lt;p&gt;블루-그린 배포(&lt;code&gt;Blue-Green Deployment&lt;/code&gt;)는 마지막 테스트 환경이 나머지 플랫폼에 대해 실제 실행 중인 프로덕션 환경에서 테스트의 마지막 단계를 수행해야 한다는 가정으로부터 시작된다. 애플리케이션 또는 마이크로 서비스의 이전 버전에 있떤 사용장 트래픽을 이전 버전과 거의 동일한 새 버전으로 점진적으로 이전하는 애플리케이션 릴리스 모델이며, &lt;code&gt;blue&lt;/code&gt;와 &lt;code&gt;green&lt;/code&gt;이라는 두 개의 동일한 프로덕션 환경을 실행하여 가동 중지 시간과 위험을 줄이는 기술이다. 새 버전을 배포한 후 프로덕션 환경에서 테스트의 모든 이점을 얻으면서 사용자를 새 버전으로 리다이렉션하지 않고 프로덕션에서 새 코드를 테스트 할 수 있다.&lt;/p&gt;
-&lt;p&gt;그리고 모든 테스트가 통과되면 트래픽의 100%를 &lt;code&gt;MFE&lt;/code&gt;의 새 버전으로 리다이렉션할 준비가 되며, 이 전략은 사용자에게 영향을 주지 않고 모든 테스트를 수행할 수 있기 때문에 새로운 &lt;code&gt;MFE&lt;/code&gt;를 배포할 위험을 줄여준다.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://user-images.githubusercontent.com/42884032/164986523-c586e14e-4796-43ca-af68-2f98208d148e.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;이전 버전을 &lt;code&gt;blue&lt;/code&gt; 환경, 새 버전을 &lt;code&gt;green&lt;/code&gt; 환경으로 부르며, 프로덕션 트래픽이 블루에서 그린으로 완전히 이전되면, 블루를 롤백에 대비하여 남겨두면 된다. 이 기술을 배포로 인한 다운타임을 제거할 수 있으며, 새 버전에서 예상치 못한 일이 발생할 수 있으므로 &lt;code&gt;blue&lt;/code&gt;를 바로 폐기하지 말고 롤백해야 하는 경우가 발생했을때 바로 &lt;code&gt;blue&lt;/code&gt;로 전환하여 마지막 버전으로 롤백할 수 있다.&lt;/p&gt;
-&lt;p&gt;참고로 데이터베이스 마이그레이션과 같이 시간이 많이 걸리는 작업에 대한 유지 관리 기간 동안 정적 유지 관리 페이지를 표시하도록 경로 매핑 패턴을 조정할 수 있으며, 블루-그린 배포로 인해 업데이터 중 그린 데이터베이스와 블루 데이터베이스 간에 불일치가 발생할 수 있으므로, 데이터 무결성을 위해 단일 데이터베이스를 구성한다.&lt;/p&gt;
-&lt;h2 id=&#34;canary-releases&#34;&gt;Canary Releases&lt;/h2&gt;
-&lt;p&gt;카나리아 릴리스(&lt;code&gt;Canary Releases&lt;/code&gt;)에서는 모든 테스트를 통과한 후 모든 트래픽을 새 버전으로 전환하지 않으며, 대신 새로운 &lt;code&gt;MFE&lt;/code&gt; 버전으로 트래픽을 점차 완화한다. 오류율 증가 또는 사용자 참여 감소와 같이 새로운 프론트엔드를 소비하는 라이브 트래픽의 메트릭을 모니터링하면서 그에 따라 트래픽을 늘리거나 줄일 수 있다.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://user-images.githubusercontent.com/42884032/164987876-a167ced7-97d0-43cc-94ae-17482a02d931.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;h2 id=&#34;blue-green-deployment--canary-releases&#34;&gt;Blue-Green Deployment / Canary Releases&lt;/h2&gt;
-&lt;p&gt;두 방식 모두 트래픽을 형성하거나 트래픽을 한 버전에서 다른 버전으로 전환하는 라우터가 필요하다. 라우터는 선택한 아키텍처에 따라 클라이언트측, 서버측, 에지측에서 처리될 수 있다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;클라이언트측 라우팅: 정적 JSON 또는 백엔드 API를 통해 전달된 애플리케이션 쉘 구성&lt;/li&gt;
-&lt;li&gt;에지측 라우팅: 엣지에서 실행되는 로직(e.g. AWS Lambda@Edge)&lt;/li&gt;
-&lt;li&gt;서버측 라우팅: 애플리케이션 서버 로직, API 게이트웨이, 로드 밸런서&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;strangler-pattern&#34;&gt;Strangler Pattern&lt;/h2&gt;
-&lt;p&gt;교살자 패턴(&lt;code&gt;Strangler Pattern&lt;/code&gt;)은 기존 웹 애플리케이션이 있고 &lt;code&gt;MFE&lt;/code&gt;를 도입할때 유용하게 사용할 수 있다. 물론 &lt;code&gt;MFE&lt;/code&gt;를 도입할때 전체 애플리케이션이 &lt;code&gt;MFE&lt;/code&gt;로 전부 다시 작성될 때가지 기다릴 수도 있겠지만, 현실에선 교살자 패턴이 더 적절한 경우가 많다.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://user-images.githubusercontent.com/42884032/164988614-310f5fdf-287f-460c-a737-925eddf2cbf5.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;교살자 패턴이란 완전히 새로운 애플리케이션이 준비될 때까지 기다리는 대신 애플리케이션의 일부를 릴리스하여 비즈니스와 사용자를 위한 증분 가치(&lt;code&gt;Incremental value&lt;/code&gt;)를 생성한다는 아이디어에서 비롯된다. &lt;code&gt;MFE&lt;/code&gt;를 구축하고 레거시 애플리케이션과 같이 유지하며 애플리케이션의 새로운 부분을 개발할 때마다 전체 레거시 애플리케이션이 &lt;code&gt;MFE&lt;/code&gt; 플랫폼으로 완전히 대체될 때까지 레거시 애플리케이션의 다른 부분을 대체한다. 애플리케이션 영역이 아직 &lt;code&gt;MFE&lt;/code&gt;에 대한 준비가 되지 않는 경우 라우터는 사용자를 레거시 플랫폼으로 리다이렉션 시킨다.&lt;/p&gt;
-&lt;p&gt;도살자 패턴을 사용하면 회사가 부담없이 감수할 수 있는 위험을 탐색한 다음 이를 분석한 후 올바른 구현을 설계할 수 있다.&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>Micro-Frontend - 1편</title>
-        <link>https://JungKyuHyun.github.io/p/micro-frontend-1%ED%8E%B8/</link>
-        <pubDate>Tue, 19 Apr 2022 00:00:00 +0900</pubDate>
-        
-        <guid>https://JungKyuHyun.github.io/p/micro-frontend-1%ED%8E%B8/</guid>
-        <description>&lt;h2 id=&#34;microservice&#34;&gt;Microservice&lt;/h2&gt;
-&lt;p&gt;마이크로 프론트엔드(&lt;code&gt;Micro-Frontends&lt;/code&gt;)는 요즘 흔히 이야기가 나오는 마이크로서비스 아키텍처에서 영감을 받은 새로운 아키텍처이다. 이 아키텍처의 핵심 아이디어는 모놀리식(&lt;code&gt;monolithic&lt;/code&gt;) 코드베이스를 더 작은 부분으로 나누어,&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;여러 팀이 독립적으로 작업할 수 있으며&lt;/li&gt;
-&lt;li&gt;배포 규모가 작고&lt;/li&gt;
-&lt;li&gt;장애는 단일 서비스에만 직접 관련되게 된다.&lt;/li&gt;
-&lt;li&gt;또한 프레임워크와 프로그래밍 언어를 개발 팀에 맞게 자유롭게 선택할 수 있으며,&lt;/li&gt;
-&lt;li&gt;초기 출시 기간도 짧고 서비스 단위로 명확한 아키텍처 경계를 가지고 있다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;(당연히 위의 이야기는 잘 구축되었을 때의 해피 케이스이므로 현실에선 저렇지 않다고 너무 모라고 하시지 마시고, 열린 마음으로 계속 글을 읽어주세요ㅎㅎ)&lt;/p&gt;
-&lt;p&gt;사실 위의 장점은 마이크로 프론트엔드만의 장점이기 보다는 마이크로서비스가 갖는 장점이긴 한데 대부분 유사한 이점을 가지고 있다. 그리고 당연히 단점도 존재한다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;디버깅의 복잡성 증가 및 테스트가 어려워짐: 한가지 서비스에서 발생한 작은 버그 코드가 이 서비스에 의존하는 유관 서비스들로 퍼져 서비스가 장애가 난 원인의 근본 원인을 찾기가 더욱 힘들다.&lt;/li&gt;
-&lt;li&gt;장애(실패) 지점이 여러 서비스에서 존재&lt;/li&gt;
-&lt;li&gt;책임감 부족&lt;/li&gt;
-&lt;li&gt;버전 관리 지옥&amp;hellip;&lt;/li&gt;
-&lt;li&gt;네트워킹, 지속성 계층, 통신 프로토콜, 보안 및 기타 여러 수준에서의 복합성 처리&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;어떤 이야기든 결론은 비슷한거 같지만, 우리 제품의 상황에 맞는 선택과 아키텍처를 적용하는게 중요하다.&lt;/p&gt;
-&lt;h2 id=&#34;micro-frontend-등장&#34;&gt;Micro-frontend 등장&lt;/h2&gt;
-&lt;p&gt;사실 마이크로 프론트엔드가 대부분의 서비스에서 필요한 부분은 아니었다. 왜냐하면 모든 비즈니스 로직은 서버에서 실행되었으며 클라이언트는 그 계산 결과만 표시해주는 단순한 씬 클라이언트(&lt;code&gt;thin client&lt;/code&gt;)에 불과했기 때문이다.&lt;/p&gt;
-&lt;p&gt;하지만 시간이 지나고 우리의 웹은 사용자와 더 많은, 더 나은 상호 작용들이 늘어났으며, 프론트엔드의 크기는 점점 비대해졌다. 이젠 더이상 씬 클라이언트(&lt;code&gt;thin client&lt;/code&gt;)라고 부를 수 없게 된 것이다. 또한 프론트엔드의 기술을 매년 진화하고 트랜드가 너무 빨리 바뀌면서 아무리 잘 관리한 프로젝트라도 몇년 후에는 그 것을 관리할 수 있는 개발자를 뽑기조차 힘들어졌다. 그렇다고 무턱대고 프로젝트 전부를 새로운 기술과 코드 베이스로 마이그레이션하거나 리펙토링하는 것은 현실적으로 힘들었으며, 이것들로 인해 새로운 기능들을 미룰 수도 없는 상황이 된다. (사실 &lt;code&gt;JQuery&lt;/code&gt;를 사용하지 않게 될 줄은 꿈에도 몰랐다.)&lt;/p&gt;
-&lt;p&gt;우리가 가진 모놀리식 접근 방법으로는 해결하기 어려워졌고, 백엔드에서 마이크로 서비스를 통해 비슷하게 문제를 해결했듯이 프론트엔드에서도 이를 도입하여 문제를 해결하고자 했다.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://user-images.githubusercontent.com/42884032/163851226-2b94d3df-2f6c-420a-8ce2-290c202f7742.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;micro-frontend drawio (2)&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;h2 id=&#34;micro-frontend에-대해-좀더-생각해보자&#34;&gt;Micro-frontend에 대해 좀더 생각해보자&lt;/h2&gt;
-&lt;p&gt;프론트엔드를 단순하게 마이크로 서비스처럼 나눈다고 생각했을 때는 간단하게 생각할 수도 있지만, 그건 HTML을 여러개 나누어 합친다는 식으로 생각했을 때 이야기이다. 생각보다 복잡한 문제가 많이 존재한다.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;전역 변수는? 기존에 번들링 했던 여러 assets들은? 개별 서비스에서 URL에 따라 잘 연동될 수 있을까? 로그인 관리는? 각각의 서비스가 모두 리소스를 새로 만들어 사용한다면 사용자의 컴퓨터의 자원이 근방 고갈될텐데 등&amp;hellip;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;위와 같은 이유를 포함해서 많은 기술적, 경험적 이유를 통해 마이크로 프론트엔드를 구축하는 것은 매우 어려운 작업이었으나, 최근에는 이와 관련해 꽤 많은 솔루션과 실제 구축 사례들이 컨퍼런스나 블로그 글 등을 통해 많이 발표되고 있다. 우리의 프론트엔드의 코드베이스가 폭발적으로 증가하고 다른 주기를 갖는 여러 프론트엔드 팀이 계속 생겨나고 있다면 마이크로 프론트엔드는 이때 발생하는 여러 문제를 나름 효과적으로 해결할 수 있는 한 방법이 될 것이다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;추가 장점1: 큰 모놀리식 저장소보다 여러 개의 작은 저장소를 사용하여, 문서를 쉽게 최신으로 유지할 수 있으며, 더 작은 커밋 히스토리를 유지할 수 있다.&lt;/li&gt;
-&lt;li&gt;추가 장점2: 외부 개발자 등과 함께 일할때 코드 베이스를 분리하여 개발을 요청한 범위 이외의 저장소에는 쉽게 접근을 막을 수도 있다.&lt;/li&gt;
-&lt;li&gt;추가 장점3: POC(최소 실행 가능한 제품)을 만들어 피드백을 받거나, A/B테스트 등을 하는 등의 비즈니스 관점에서도 마이크로 프론트엔드는 충분히 매력적이다.&lt;/li&gt;
-&lt;li&gt;추가 단점1: 어떤 코드가 어떤 저장소에 있는지 아는 것이 미덕이 되고, 시스템을 완전히 이해하려면 훨씬 더 많은 전문 지식이 필요하게 될 수 있다.&lt;/li&gt;
-&lt;li&gt;추가 단점2: 유지 보수가 만만치 않다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;p&gt;여기까지 정말 간단하게나마 마이크로 서비스부터 마이크로 프론트엔드의 등장까지 요약해 봤다. 이제 조금씩 세부적으로 들여다 보자. 먼저 샘 뉴먼의 저서 마이크로서비스 아키텍처 구축에 나온 마이크로서비스 원칙에 대해서 먼저 살펴보려고 한다.&lt;/p&gt;
-&lt;h2 id=&#34;microservice-원칙&#34;&gt;Microservice 원칙&lt;/h2&gt;
-&lt;p&gt;아래와 같은 원칙을 수용하여 마이크로서비스를 개발하는 것을 권한다. 물론 마이크로 프론트라고 예외는 아니다.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://user-images.githubusercontent.com/42884032/163852712-a9f100b6-a981-486b-a772-bf6e3a548127.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;https://samnewman.io/talks/principles-of-microservices/&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;[출처] &lt;a class=&#34;link&#34; href=&#34;https://samnewman.io/talks/principles-of-microservices&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://samnewman.io/talks/principles-of-microservices&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;비즈니스-도메인을-중심으로-모델링&#34;&gt;비즈니스 도메인을 중심으로 모델링&lt;/h3&gt;
-&lt;p&gt;이는 도메인 중심 설계에서 이야기한 핵심 원칙이다. 각 소프트웨어는 조직이 하는 일을 반영하고, 우리는 비즈니스 전반에 걸쳐 유비쿼터스 언어를 활용하여 도메인 및 하위 도메인을 기반으로 아키텍처를 설계해야 한다는 가정에서 시작한다. 비즈니스 관점에서 모델링할 때 시스템에 대한 더 나은 이해, 비즈니스 도메인의 기술 표현에 대한 더 쉬운 정의, 팀이 운영해야 하는 명확한 경계 등 여러 이점을 제공한다.&lt;/p&gt;
-&lt;h3 id=&#34;자동화-문화&#34;&gt;자동화 문화&lt;/h3&gt;
-&lt;p&gt;강력한 자동화 문화를 통해 저 빠르고 안정적인 방식으로 마이크로서비스를 적용할 수 있으며, 마이크로서비스 아키텍처의 핵심 프로세스 중 하나이다.&lt;/p&gt;
-&lt;h3 id=&#34;구현-세부-정보-숨기기&#34;&gt;구현 세부 정보 숨기기&lt;/h3&gt;
-&lt;p&gt;동일한 비즈니스 도메인 내에서 서비스를 캡슐화하며, API를 통해 필요한 것만 노출하고 나머지 구현은 숨긴다. 이를 통해 시스템의 나머지 부분에 영향을 주지 않고 내부 논리를 원하는 대로 변경할 수 있다.&lt;/p&gt;
-&lt;h3 id=&#34;모든-것을-분산화&#34;&gt;모든 것을 분산화&lt;/h3&gt;
-&lt;p&gt;기술적 문제가 있더라도 모놀리스를 사용하면 조직에서 가장 경험이 많은 사람들이 주요 의사 결정을 내리는 경우가 많고, 직면한 문제에 대해 타협점을 만들고 넘어가는 경우가 많지만, 이러한 결정을 분산화하면 팀이 직면한 문제를 기반으로 기술적인 방향을 취할 수 있으므로 전체 시스템에 긍정적 영향을 미칠 수 있다.&lt;/p&gt;
-&lt;h3 id=&#34;독립적-배포&#34;&gt;독립적 배포&lt;/h3&gt;
-&lt;p&gt;마이크로서비스의 핵심 중 하나이다. 모놀리스를 사용하면 제품을 배포하고 롤백하는데 많은 시간이 걸리며 매번 전체 시스템을 배포해야 한다. 하지만 독립적인 배포를 통해 전체 API 계층을 손상시킬 가능성을 줄이면서 자율적으로 배포할 수 있으며, 더 적은 위험으로 마이크로서비스의 새 버전을 출시할 수도 있다.&lt;/p&gt;
-&lt;h3 id=&#34;실패-격리&#34;&gt;실패 격리&lt;/h3&gt;
-&lt;p&gt;서비스 장애 등으로 하나 이상의 마이크로서비스에 연결할 수 없는 경우 시스템의 나머지 부분은 사용할 수 있어야 한다. 마이크로서비스가 자율적이고 독릭적이라는 사실은 장애 격리의 개념을 강화한다.&lt;/p&gt;
-&lt;h3 id=&#34;고도로-관찰-가능&#34;&gt;고도로 관찰 가능&lt;/h3&gt;
-&lt;p&gt;일반적으로 모놀리식 아키텍처를 선호하는 이유 중 하나는 단일 시스템을 관찰하기 때문이다. 마이크로서비스는 많은 자유와 유연성을 제공하지만 이것들이 무료는 아니다. 로그와 모니터링을 주시해야 하며, 특정 클라이언트 요청을 끝까지 파악할 준비가 되어 있어야 한다. 따라서 시스템을 고도로 관찰 가능하게 유지하는 것은 마이크로서비스의 주요 과제 중 하나이다.&lt;/p&gt;
-&lt;h2 id=&#34;참고-링크&#34;&gt;참고 링크&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://micro-frontends.org&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Micro Frontends&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;p&gt;2편에서 계속&lt;/p&gt;
 </description>
         </item>
         

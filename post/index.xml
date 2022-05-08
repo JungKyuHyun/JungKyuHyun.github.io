@@ -6,7 +6,245 @@
         <description>Recent content in Posts on 규현&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Sun, 24 Apr 2022 00:00:00 +0900</lastBuildDate><atom:link href="https://JungKyuHyun.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 28 Apr 2022 00:00:00 +0900</lastBuildDate><atom:link href="https://JungKyuHyun.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>서비스 워커(Service Worker) 활용 1</title>
+        <link>https://JungKyuHyun.github.io/p/%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%9B%8C%EC%BB%A4service-worker-%ED%99%9C%EC%9A%A9-1/</link>
+        <pubDate>Thu, 28 Apr 2022 00:00:00 +0900</pubDate>
+        
+        <guid>https://JungKyuHyun.github.io/p/%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%9B%8C%EC%BB%A4service-worker-%ED%99%9C%EC%9A%A9-1/</guid>
+        <description>&lt;h2 id=&#34;네트워크와-웹&#34;&gt;네트워크와 웹&lt;/h2&gt;
+&lt;p&gt;웹은 어디서든 접근할 수 있고 링크를 통해 어디로든 이동할 수 있다. 이런 웹의 장점이면서 치명적인 단점일 수도 있는 부분은 바로 &lt;strong&gt;반드시 네트워크 연결이 필요하다&lt;/strong&gt;라는 것이다. 평소에는 네트워크가 안정적이기 때문에 이것을 문제로 여기는 사람은 적을 것이다. 하지만 간혹 네트워크가 불안정해지거나 인프라가 부족한 해외로 여행을 가서 인터넷을 사용해 본다면 불안정한 네트워크 때문에 이미지가 다운로드 실패, 페이지 로드 실패 등의 문제가 발생한 경우를 확인할 수 있다.&lt;/p&gt;
+&lt;p&gt;이러한 웹과 네트워크와의 의존성을 극복하기 위해 많은 노력을 해왔다. 브라우저 캐시, 로컬 스토리지, 세션 스토리지, 인덱스 디비(&lt;code&gt;indexedDB&lt;/code&gt;) 등이 있다. 물론 이런 방법도 도움이 되는 방법이지만 기술별로 여러 한계가 존재했다. 그래서 기술을 계속 발전하고 사람들은 이 문제를 해결하기 위한 다른 방법을 도입했으며, 그 중에 하나가 바로 서비스 워커(&lt;code&gt;service worker&lt;/code&gt;)이다.&lt;/p&gt;
+&lt;h2 id=&#34;service-worker&#34;&gt;Service Worker&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;무엇보다도, 그것들은 효과적인 오프라인 경험을 만들고, 네트워크 요청을 가로채고, 네트워크가 사용 가능한지 여부에 따라 적절한 조치를 취하고, 서버에 있는 자산을 업데이트하기 위한 것이다. (MDN Docs - Service Worker API)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;정의는 기존 &lt;code&gt;MDN&lt;/code&gt; 페이지에 있는 내용을 가져왔다. 그렇다면 어떻게 이런 것들이 가능하게 되는 것일까? 서비스 워커 또한 일반적으로 브라우저에서 실행되는 자바스크립트(&lt;code&gt;Javascript&lt;/code&gt;)로 작성한다. 이 둘의 가장 큰 차이점이라고 한다면, 서비스 워커는 &lt;code&gt;DOM&lt;/code&gt;에 접근할 수 없다.&lt;/p&gt;
+&lt;h2 id=&#34;dom에-접근할-수-없는-javascript&#34;&gt;DOM에 접근할 수 없는 Javascript?&lt;/h2&gt;
+&lt;p&gt;똑같이 &lt;code&gt;JS&lt;/code&gt;로 코드를 작성하지만 서비스 워커의 경우 DOM에 접근할 수 없다. 이게 무슨 소린지 하겠지만, 이것은 의도된 부분이다. 기존 프로세스에서 완전히 분리시켜 웹 브라우저에서 기존 문서를 랜더링하는 동시에 서비스 워커 스크립트를 병렬로 안전하게 실행할 수 있는 것이다. 이것을 적용한 스크립트를 &lt;code&gt;웹 워커&lt;/code&gt;라는 이름으로 불리며 사용되었으며, 이 웹 워커를 이용하면 아무리 복잡한 연산이더라도 브라우저 창의 출력 속도를 저해하지 않았다. 그리고 서비스 워커는 이런 웹 워커의 기능에 브라우저의 근본적인 내부 동작에 관여할 수 있도록 기능이 추가된 것으로 보면 된다.&lt;/p&gt;
+&lt;p&gt;이런 서비스 워커를 이용하면, 웹 브라우저가 서버로 요청을 보내기도 전에 특정 작업이 먼저 되도록 지정할 수도 있다. 기존 자바스크립트로 작성한 코드는 일반적으로 서버에서 다운로드한 뒤에 실행하는 용도라면, 서비스 워커를 이용하면 다른 것보다 우선해서 실행되는 스크립트를 작성할 수 있게 되는 것이다.&lt;/p&gt;
+&lt;h2 id=&#34;서비스-워커의-제약-사항&#34;&gt;서비스 워커의 제약 사항&lt;/h2&gt;
+&lt;p&gt;서비스 워커는 위에 글만 언뜻봐도 강력한 기능인 것으로 보인다.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;내가 작성한 다른 스크립트보다도 먼저 동작할 수 있다고? 내 사이트가 공격에 취약해 질 수 있는거 아닌가&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;이론상 생각을 해본다면 누군가 내 사이트에 서비스 워커를 설치하여 브라우저에서 내 사이트가 뜨지 못하도록 만들거나 중요한 내용들을 마음대로 바꾼다면 상상치 못한 문제가 발생할 수 있다. 하지만 서비스 워커에는 기본적으로 두 가지 제약 사항이 존재하여, 이런 문제를 사전에 방지한다.&lt;/p&gt;
+&lt;h3 id=&#34;동일-출처-정책&#34;&gt;동일 출처 정책&lt;/h3&gt;
+&lt;p&gt;동일 출처 정책은 내 사이트의 도메인에서 실행되는 서비스 워커 스크립트만 설치할 수 있다. 따라서 도메인 주소가 다르다면 서비스 워커 스크립트를 설치할 수 없다.&lt;/p&gt;
+&lt;h3 id=&#34;https-전용&#34;&gt;HTTPS 전용&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;HTTP&lt;/code&gt;에서는 동작하지 않으며, &lt;code&gt;HTTPS&lt;/code&gt;에서만 동작한다. 물론 &lt;code&gt;localhost&lt;/code&gt;는 제외이다.&lt;/p&gt;
+&lt;h2 id=&#34;기본-사용법&#34;&gt;기본 사용법&lt;/h2&gt;
+&lt;p&gt;사용법을 보기 전에 대부분의 브라우저에서 서비스 워커는 잘 동작하기 때문에 이 점을 미리 안심(?)하고 가면 된다.(IE 👋)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://user-images.githubusercontent.com/42884032/167284212-d5d84744-f154-426b-b4e6-18b13499f79f.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;can i use&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;서비스-워커-등록&#34;&gt;서비스 워커 등록&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;root&lt;/code&gt; 폴더에 &lt;code&gt;serviceworker.js&lt;/code&gt; 파일을 생성한다. 원하는 동작에 따라 다르긴 하겠지만 일반적으로 서비스 워커 파일은 &lt;code&gt;root&lt;/code&gt;에 두는 것이 좋다. 이는 서비스 워커의 적용 범위와 관련이 있는데, 서비스 워커의 적용 범위는 서비스 워커 스크립트 파일이 위치한 곳이 기본값이 된다. 예를 들어 서비스 워커 스크립트를 &lt;code&gt;/js&lt;/code&gt; 경로 안에 위치 시켰다면 &lt;code&gt;/js/&lt;/code&gt;로 시작하는 &lt;code&gt;URL&lt;/code&gt;만 제어할 수 있다.&lt;/p&gt;
+&lt;h3 id=&#34;여러-서비스-워커-등록&#34;&gt;여러 서비스 워커 등록&lt;/h3&gt;
+&lt;p&gt;여러 개의 서비스 워커를 설정하는 상황에서는 서비스 워커의 적용 범위가 그 파일의 &lt;code&gt;URL&lt;/code&gt;에 따라 정해지므로 웹사이트의 어느 곳에서든 두 파일을 가리킬 수 있다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;navigator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;serviceWorker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;register&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/app1/serviceworker1.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;navigator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;serviceWorker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;register&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/app2/serviceworker2.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;서비스-워커의-적용-범위가-겹친다면&#34;&gt;서비스 워커의 적용 범위가 겹친다면&lt;/h3&gt;
+&lt;p&gt;상위 &lt;code&gt;URL&lt;/code&gt;에서 동작하는 서비스 워커와 하위 &lt;code&gt;URL&lt;/code&gt;에서 동작하는 겹칠 수 있다. 이런 경우 &amp;ldquo;URL이 가장 긴 서비스 워커 스크립트가 이긴다&amp;quot;라는 규칙 적용된다고 생각하면 이해가 쉽다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;navigator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;serviceWorker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;register&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/serviceworker.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;navigator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;serviceWorker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;register&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/app1/serviceworker1.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;/app1/&lt;/code&gt; 폴더 안의 서비스 워커는 &lt;code&gt;/app1/&lt;/code&gt;로 시작하는 모든 요청을 처리하며, 그 외의 모든 &lt;code&gt;URL&lt;/code&gt;에서는 &lt;code&gt;/serviceworker.js&lt;/code&gt;가 처리한다.&lt;/p&gt;
+&lt;h3 id=&#34;서비스-워커-파일을-모아서-관리하고-싶다&#34;&gt;서비스 워커 파일을 모아서 관리하고 싶다&lt;/h3&gt;
+&lt;p&gt;근데 위에 처럼 구현하다 보면 서비스 워커 파일이 흩어져 관리하기가 힘들어 질 수도 있다. 만약 이런 상황이라면 모든 서비스 워커 스크립트를 모두 최상위 경로에 모아두고 &lt;code&gt;scope&lt;/code&gt;를 통해 해결할 수 있다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;navigator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;serviceWorker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;register&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/serviceworker1.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;navigator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;serviceWorker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;register&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/serviceworker2.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;scope&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;/app2/&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;일단 여러 서비스 워커를 등록하는 방법을 살펴봤다. 하지만 대부분은 웹사이트 전체에서 동작하는 서비스 워커 하나면 충분할 것이다.&lt;/p&gt;
+&lt;h2 id=&#34;서비스-워커를-등록하는-2가지-방법&#34;&gt;서비스 워커를 등록하는 2가지 방법&lt;/h2&gt;
+&lt;p&gt;위에서 아무런 설명없이 &lt;code&gt;navigator.serviceWorker.register&lt;/code&gt;을 통해서 하긴 했지만, 사실 서비스 워커를 등록하는 방법은 두 가지가 있다.&lt;/p&gt;
+&lt;h3 id=&#34;link-tag-이용하기&#34;&gt;link tag 이용하기&lt;/h3&gt;
+&lt;p&gt;조금 더 선언적인 방식으로 &lt;code&gt;HTML header&lt;/code&gt;에 &lt;code&gt;link&lt;/code&gt; 태그를 이용하여 서비스 워커를 등록할 수 있다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;link&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;rel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;serviceworker&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/serviceworker.js&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;여기에 관한 내용을 조금 찾아봤더니 크롬에선 &lt;code&gt;2018-03-26&lt;/code&gt; 사양에서 제거되었다고 한다. 그럼에도 불구하고 언급하고 가는 이유는 &lt;code&gt;HTML&lt;/code&gt;의 오류 처리 모델에 대해 조금 설명하기 위함이다. 이런 내용을 찾다보면 문뜩 궁금해 질 수 있다.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;link rel=&amp;quot;serviceworker&amp;quot; href=&amp;quot;/serviceworker.js&amp;quot;&amp;gt;&lt;/code&gt;와 &lt;code&gt;navigator.serviceWorker.register(&amp;quot;/serviceworker.js&amp;quot;);&lt;/code&gt; 단지 &amp;ldquo;선언적이다&amp;quot;라는 부분에서만 차이가 있는걸까?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;나 역시 동일한 궁금증이 생겼고, 이 둘의 차이를 조금 알아봤다. &lt;code&gt;HTML&lt;/code&gt;과 자바스크립트의 재밌는 차이점이 있는데, 바로 오류 처리 모델이 다르다는 것이다. &lt;code&gt;HTML&lt;/code&gt;에서는 언어의 확장성을 위해 &lt;code&gt;HTML&lt;/code&gt; 코드에 오타나 오류가 있더라도 브라우저는 그냥 무시해 버린다. 당연히 HTML의 오류 디버깅이 힘들게 되는건 맞지만, 언어의 확장성 측면에서는 강력하다. 지금처럼 브라우저가 서비스 워커를 지원하지 않는 경우 브라우저는 에러를 뱉는게 아니라 이 설정을 그냥 무시해 버리는 것이다. 만약 새로운 요소나 특성이 추가되었을 때도 구형 브라우저에서는 이것을 에러로 인식하여 화면을 멈추는게 아니라 그냥 넘어갈 수 있게 해주는 것이다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;navigator.serviceWorker.register(&amp;#34;/serviceworker.js&amp;#34;);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;반면 자바스크립트 코드의 경우 브라우저가 이해하지 못하는 자바스크립트 코드를 제공하면 브라우저는 오류를 뱉는다. 그리고 코드 단락을 해석하는 것도 중지해 버리며, 그 이후의 코드는 설명 오류가 없다 하더라도 실행되지 않는 것이다. 만약 브라우저가 &lt;code&gt;navigator.serviceWorker&lt;/code&gt;가 어떤 값인지 해석할 수 없다면 이 코드를 무시하지 않는 것이 아니라 오류를 일으킬 것이다.&lt;/p&gt;
+&lt;h4 id=&#34;참고-기능-탐지feature-detection&#34;&gt;참고) 기능 탐지(feature detection)&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;navigator.serviceWorker&lt;/code&gt;를 알지 못해서 에러를 일으켜 브라우저가 멈추는 것을 방지하고자, 우리는 자바스크립트로 브라우저 기능을 실행하기 전에 브라우저에 그 기능의 존재를 확인하는 작업을 한다. 이를 기능 탐지(&lt;code&gt;feature detection&lt;/code&gt;)이라고 한다.&lt;/p&gt;
+&lt;p&gt;이미 많은 개발자들이 실제로 이 용어를 모르더라도 이미 사용하고 있을 것이다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// feature detection의 예
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;typeof&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;window&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;===&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;undefined&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// cf) navigator.serviceWorker에서 window를 붙이지 않아도 되는 이유?
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 너무 일반적인거라 글로 안쓰고 주석으로만 답을 남긴다.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// window 객체는 모든 것을 담고 있는 객체기 때문에 명시적으로 window를 가리키지 않아도 되게 되어있다.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 만약 몰랐다면 실제로 브라우저 콘솔에서 테스트 해보면 된다.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;기능-탐지-방법&#34;&gt;기능 탐지 방법&lt;/h4&gt;
+&lt;p&gt;평범한 방법으로는 3가지 정도가 존재한다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// falsy check
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;navigator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;serviceWorker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;navigator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;serviceWorker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;register&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/serviceworker.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// in operator check
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;serviceWorker&amp;#34;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;navigator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;navigator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;serviceWorker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;register&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/serviceworker.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// true/false check
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;navigator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;serviceWorker&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!==&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;undefined&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;navigator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;serviceWorker&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;register&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/serviceworker.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;개인적으론 정말 &lt;code&gt;falsy&lt;/code&gt;한 값을 모두 체크하는 경우가 아니라면, 2번째나 3번째 방법을 사용하는 편이다. 조건문에는 &lt;code&gt;true/false&lt;/code&gt;의 조건식만 써주자. (이 부분에 관한 더 자세한 것은 더글러스 크락포드(&lt;code&gt;Douglas Crockford&lt;/code&gt;)가 쓴 저서를 참고하자. 참고로 [자바스크립트는 왜 그 모양일까]라는 조금 독특한 제목으로 한국어로된 책도 나온듯 하다.)&lt;/p&gt;
+&lt;h2 id=&#34;navigatorserviceworkerregister&#34;&gt;navigator.serviceWorker.register&lt;/h2&gt;
+&lt;p&gt;먼저 &lt;code&gt;register&lt;/code&gt; 함수의 시그니처에 대해 살펴보자. (&lt;a class=&#34;link&#34; href=&#34;https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer/register&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;참고 문서&lt;/a&gt;)&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;register(scriptURL: string | URL, options?: RegistrationOptions): Promise&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;옵션은 참고 문서를 살펴보면 된다. 여기서 조금 더 살펴볼 부분은 &lt;code&gt;register&lt;/code&gt; 함수의 반환 값(&lt;code&gt;Promise&amp;lt;...&amp;gt;&lt;/code&gt;)이다. 왜 프라미스로 랩핑이 되어 있는지 궁금할 수 있다. 이유는 위에서 살펴본 내용들을 조금 조합해 보면 알 수 있다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;현재의 웹 사이트가 &lt;code&gt;HTTPS&lt;/code&gt; 또는 &lt;code&gt;localhost&lt;/code&gt;인지 확인&lt;/li&gt;
+&lt;li&gt;동일한 출처의 웹인지 확인&lt;/li&gt;
+&lt;li&gt;서비스 워커 스크립트 다운로드 및 해석&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;물론 각 단계는 일반적으로 오랜 시간이 필요하지 않다. 하지만 이를 위해 브라우저가 이 작업 처리하는 사이에 화면이 멈추는 것은 옳지 않고 브라우저 성능의 향상을 위해 &lt;code&gt;register&lt;/code&gt; 메서드는 비동기로 실행된다.&lt;/p&gt;
+&lt;p&gt;만약 이 비동기 작업이 끝난 후에 추가 작업을 하고 싶다면, 조금 오래된 방식으로는 &lt;code&gt;load&lt;/code&gt;나 &lt;code&gt;ready&lt;/code&gt; 같은 이벤트를 감시하도록 하여 구현할 수 있지만, 코드를 읽기 힘들다는 단점이 있다. 하지만 &lt;code&gt;register&lt;/code&gt; 메서드의 경우 &lt;code&gt;promise&lt;/code&gt;로 랩핑되어 있기 때문에 &lt;code&gt;then&lt;/code&gt;과 &lt;code&gt;catch&lt;/code&gt;에 각각의 경우에 따른 함수를 등록해 놓기만 하면 된다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;serviceWorker&amp;#34;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;navigator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nx&#34;&gt;navigator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;serviceWorker&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;register&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/serviceworker.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;then&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;등록 성공: &amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;등록 실패: &amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Service workers are not supported.&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;참고로 성공의 반환 값으로 &lt;code&gt;ServiceWorkerRegistration&lt;/code&gt; 값이 오는데, 이 값을 통해 &lt;code&gt;scope&lt;/code&gt; 등에 접근할 수 있다. 자세한 반환 값은 문서와 아래 캡쳐 사진을 참고하자.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://user-images.githubusercontent.com/42884032/167287043-9f294dc7-82cd-4251-af97-bd41316c8e37.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;serviceWorker-promise&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;여기까지가 웹 워커에 대한 기본적인 사용 방법이다. 실전에서 어떻게 사용하는지는 현재 내가 회사에서 개발중인 제품에 적용할 일이 생겼는데 그것과 함께 풀어낼 예정이다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;참고&#34;&gt;참고&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://developer.mozilla.org/ko/docs/Web/API/Service_Worker_API/Using_Service_Workers&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://developer.mozilla.org/ko/docs/Web/API/Service_Worker_API/Using_Service_Workers&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>배포 전략(Deployment Strategies)</title>
         <link>https://JungKyuHyun.github.io/p/%EB%B0%B0%ED%8F%AC-%EC%A0%84%EB%9E%B5deployment-strategies/</link>
         <pubDate>Sun, 24 Apr 2022 00:00:00 +0900</pubDate>
